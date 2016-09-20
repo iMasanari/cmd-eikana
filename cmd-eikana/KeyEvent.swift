@@ -15,18 +15,18 @@ class KeyEvent: NSObject {
         super.init()
         
         let checkOptionPrompt = kAXTrustedCheckOptionPrompt.takeRetainedValue() as NSString
-        let options: CFDictionary = [checkOptionPrompt: true]
+        let options: CFDictionary = [checkOptionPrompt: true] as NSDictionary
         
         if !AXIsProcessTrustedWithOptions(options) {
             // アクセシビリティに設定されていない場合、設定されるまでループで待つ
-            NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(KeyEvent.watchAXIsProcess(_:)), userInfo: nil, repeats: true)
+            Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(KeyEvent.watchAXIsProcess(_:)), userInfo: nil, repeats: true)
             
         } else {
             self.watch()
         }
     }
     
-    func watchAXIsProcess(timer: NSTimer) {
+    func watchAXIsProcess(_ timer: Timer) {
         if AXIsProcessTrusted() {
             timer.invalidate()
             print("アクセシビリティに設定されました")
@@ -40,15 +40,15 @@ class KeyEvent: NSObject {
     
     func watch () {
         let masks = [
-            NSEventMask.KeyDownMask,
-            NSEventMask.KeyUpMask,
-            NSEventMask.LeftMouseDownMask,
-            NSEventMask.LeftMouseUpMask,
-            NSEventMask.RightMouseDownMask,
-            NSEventMask.RightMouseUpMask,
-            NSEventMask.OtherMouseDownMask,
-            NSEventMask.OtherMouseUpMask,
-            NSEventMask.ScrollWheelMask
+            NSEventMask.keyDown,
+            NSEventMask.keyUp,
+            NSEventMask.leftMouseDown,
+            NSEventMask.leftMouseUp,
+            NSEventMask.rightMouseDown,
+            NSEventMask.rightMouseUp,
+            NSEventMask.otherMouseDown,
+            NSEventMask.otherMouseUp,
+            NSEventMask.scrollWheel
             // NSEventMask.MouseMovedMask,
         ]
         let handler = {(evt: NSEvent!) -> Void in
@@ -56,34 +56,34 @@ class KeyEvent: NSObject {
         }
         
         for mask in masks {
-            NSEvent.addGlobalMonitorForEventsMatchingMask(mask, handler: handler)
+            NSEvent.addGlobalMonitorForEvents(matching: mask, handler: handler)
         }
         
-        NSEvent.addGlobalMonitorForEventsMatchingMask(NSEventMask.FlagsChangedMask, handler: {(evevt: NSEvent!) -> Void in
+        NSEvent.addGlobalMonitorForEvents(matching: NSEventMask.flagsChanged, handler: {(evevt: NSEvent!) -> Void in
             if evevt.keyCode == 55 { // 右コマンドキー
-                if evevt.modifierFlags.contains(.CommandKeyMask) {
+                if evevt.modifierFlags.contains(.command) {
                     self.keyCode = 55
                 }
                 else if self.keyCode == 55 {
                     print("英数")
                     
-                    let loc = CGEventTapLocation.CGHIDEventTap
+                    let loc = CGEventTapLocation.cghidEventTap
                     
-                    CGEventPost(loc, CGEventCreateKeyboardEvent(nil, 102, true))
-                    CGEventPost(loc, CGEventCreateKeyboardEvent(nil, 102, false))
+                    CGEvent(keyboardEventSource: nil, virtualKey: 102, keyDown: true)?.post(tap: loc)
+                    CGEvent(keyboardEventSource: nil, virtualKey: 102, keyDown: false)?.post(tap: loc)
                 }
             }
             else if evevt.keyCode == 54 { // 左コマンドキー
-                if evevt.modifierFlags.contains(.CommandKeyMask) {
+                if evevt.modifierFlags.contains(.command) {
                     self.keyCode = 54
                 }
                 else if self.keyCode == 54 {
                     print("かな")
                     
-                    let loc = CGEventTapLocation.CGHIDEventTap
+                    let loc = CGEventTapLocation.cghidEventTap
                     
-                    CGEventPost(loc, CGEventCreateKeyboardEvent(nil, 104, true))
-                    CGEventPost(loc, CGEventCreateKeyboardEvent(nil, 104, false))
+                    CGEvent(keyboardEventSource: nil, virtualKey: 104, keyDown: true)?.post(tap: loc)
+                    CGEvent(keyboardEventSource: nil, virtualKey: 104, keyDown: false)?.post(tap: loc)
                 }
             }
             else {

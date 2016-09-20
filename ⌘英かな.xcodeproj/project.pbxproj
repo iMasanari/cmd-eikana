@@ -146,11 +146,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = eikana;
 				TargetAttributes = {
 					629428161D387503001BD4E9 = {
 						CreatedOnToolsVersion = 7.3;
+						LastSwiftMigration = 0800;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
 								enabled = 0;
@@ -159,6 +160,7 @@
 					};
 					629428271D387503001BD4E9 = {
 						CreatedOnToolsVersion = 7.3;
+						LastSwiftMigration = 0800;
 						TestTargetID = 629428161D387503001BD4E9;
 					};
 				};
@@ -257,8 +259,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
@@ -302,8 +306,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
@@ -322,6 +328,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};
 			name = Release;
 		};
@@ -330,10 +337,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = StatusBarApp/Info.plist;
+				INFOPLIST_FILE = "cmd-eikana/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.appspot.ei-kana.CommandEiKana";
 				PRODUCT_NAME = "⌘英かな";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -342,10 +350,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = StatusBarApp/Info.plist;
+				INFOPLIST_FILE = "cmd-eikana/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.appspot.ei-kana.CommandEiKana";
 				PRODUCT_NAME = "⌘英かな";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -354,11 +363,11 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = StatusBarAppTests/Info.plist;
+				INFOPLIST_FILE = "cmd-eikanaTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = test1.StatusBarAppTests;
 				PRODUCT_NAME = "⌘英かな";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/⌘英かな.app/Contents/MacOS/⌘英かな";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -367,11 +376,11 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = StatusBarAppTests/Info.plist;
+				INFOPLIST_FILE = "cmd-eikanaTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = test1.StatusBarAppTests;
 				PRODUCT_NAME = "⌘英かな";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/⌘英かな.app/Contents/MacOS/⌘英かな";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

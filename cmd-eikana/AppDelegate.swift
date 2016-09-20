@@ -14,10 +14,10 @@ var loginItem = NSMenuItem()
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
-    var statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(CGFloat(NSVariableStatusItemLength))
+    var statusItem = NSStatusBar.system().statusItem(withLength: CGFloat(NSVariableStatusItemLength))
     
     
-    func applicationDidFinishLaunching(aNotification: NSNotification) {
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
         
         _ = KeyEvent()
@@ -27,22 +27,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.statusItem.highlightMode = true
         self.statusItem.menu = menu
         
-        loginItem = menu.addItemWithTitle("ログイン時に開く", action: #selector(AppDelegate.launch(_:)), keyEquivalent: "")!
+        loginItem = menu.addItem(withTitle: "ログイン時に開く", action: #selector(AppDelegate.launch(_:)), keyEquivalent: "")
         loginItem.state = applicationIsInStartUpItems() ? 1 : 0
         
-        menu.addItem(NSMenuItem.separatorItem())
+        menu.addItem(NSMenuItem.separator())
         
-        menu.addItemWithTitle("About ⌘英かな 1.0.1", action: #selector(AppDelegate.open(_:)), keyEquivalent: "")
-        menu.addItemWithTitle("Quit", action: #selector(AppDelegate.quit(_:)), keyEquivalent: "")
+        menu.addItem(withTitle: "About ⌘英かな 1.0.1", action: #selector(AppDelegate.open(_:)), keyEquivalent: "")
+        menu.addItem(withTitle: "Quit", action: #selector(AppDelegate.quit(_:)), keyEquivalent: "")
     }
     
-    func applicationWillTerminate(aNotification: NSNotification) {
+    func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
     
-    @IBAction func open(sender: NSButton) {
-        if let checkURL = NSURL(string: "https://ei-kana.appspot.com") {
-            if NSWorkspace.sharedWorkspace().openURL(checkURL) {
+    @IBAction func open(_ sender: NSButton) {
+        if let checkURL = URL(string: "https://ei-kana.appspot.com") {
+            if NSWorkspace.shared().open(checkURL) {
                 print("url successfully opened")
             }
         } else {
@@ -50,7 +50,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    @IBAction func launch(sender: NSButton) {
+    @IBAction func launch(_ sender: NSButton) {
         if sender.state == 0 {
             sender.state = 1
             addLaunchAtStartup()
@@ -61,7 +61,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    @IBAction func quit(sender: NSButton) {
-        NSApplication.sharedApplication().terminate(self)
+    @IBAction func quit(_ sender: NSButton) {
+        NSApplication.shared().terminate(self)
     }
 }
