@@ -2,8 +2,8 @@
 //  toggleLaunchAtStartup.swift
 //  ⌘英かな
 //
-//  Created by eikana on 2016/07/17.
-//  Copyright © 2016年 eikana. All rights reserved.
+//  MIT License
+//  Copyright (c) 2016 iMasanari
 //
 
 // ログイン項目に追加、またはそこから削除するための関数

@@ -2,8 +2,8 @@
 //  KeyEvent.swift
 //  ⌘英かな
 //
-//  Created by eikana on 2016/07/18.
-//  Copyright © 2016年 eikana. All rights reserved.
+//  MIT License
+//  Copyright (c) 2016 iMasanari
 //
 
 import Cocoa
