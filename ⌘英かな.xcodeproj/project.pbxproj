@@ -88,7 +88,7 @@
 				629428231D387503001BD4E9 /* Info.plist */,
 			);
 			name = "⌘英かな";
-			path = StatusBarApp;
+			path = "cmd-eikana";
 			sourceTree = "<group>";
 		};
 		6294282B1D387503001BD4E9 /* ⌘英かなTests */ = {
@@ -98,7 +98,7 @@
 				6294282E1D387503001BD4E9 /* Info.plist */,
 			);
 			name = "⌘英かなTests";
-			path = StatusBarAppTests;
+			path = "cmd-eikanaTests";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
