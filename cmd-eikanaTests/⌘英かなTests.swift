@@ -2,12 +2,11 @@
 //  StatusBarAppTests.swift
 //  StatusBarAppTests
 //
-//  Created by eikana on 2016/07/15.
-//  Copyright © 2016年 eikana. All rights reserved.
+//  MIT License
+//  Copyright (c) 2016 iMasanari
 //
 
 import XCTest
-@testable import StatusBarApp
 
 class StatusBarAppTests: XCTestCase {
     
@@ -28,7 +27,7 @@ class StatusBarAppTests: XCTestCase {
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
-        self.measureBlock {
+        self.measure {
             // Put the code you want to measure the time of here.
         }
     }
