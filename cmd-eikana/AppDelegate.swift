@@ -8,37 +8,68 @@
 
 import Cocoa
 
+var statusItem = NSStatusBar.system().statusItem(withLength: CGFloat(NSVariableStatusItemLength))
 var loginItem = NSMenuItem()
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
-    var statusItem = NSStatusBar.system().statusItem(withLength: CGFloat(NSVariableStatusItemLength))
+    var windowController : NSWindowController?
     
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
         
+//        resetUserDefault() // デバッグ用
+        
+        let userDefaults = UserDefaults.standard
+        
+        if userDefaults.object(forKey: "lunchAtStartup") == nil {
+            setLaunchAtStartup(true)
+            userDefaults.set(1, forKey: "lunchAtStartup")
+        }
+        
         _ = KeyEvent()
         
-        setLaunchAtStartup(true)
-        
         let menu = NSMenu()
-        self.statusItem.title = "⌘"
-        self.statusItem.highlightMode = true
-        self.statusItem.menu = menu
+        statusItem.title = "⌘"
+        statusItem.highlightMode = true
+        statusItem.menu = menu
         
 //        loginItem = menu.addItem(withTitle: "ログイン時に開く", action: #selector(AppDelegate.launch(_:)), keyEquivalent: "")
 //        loginItem.state = applicationIsInStartUpItems() ? 1 : 0
 //        
 //        menu.addItem(NSMenuItem.separator())
         
-        menu.addItem(withTitle: "About ⌘英かな 1.0.1", action: #selector(AppDelegate.open(_:)), keyEquivalent: "")
+        menu.addItem(withTitle: "About ⌘英かな 1.0.2", action: #selector(AppDelegate.open(_:)), keyEquivalent: "")
+        menu.addItem(withTitle: "Preferences...", action: #selector(AppDelegate.openPreferencesSerector(_:)), keyEquivalent: "")
         menu.addItem(withTitle: "Quit", action: #selector(AppDelegate.quit(_:)), keyEquivalent: "")
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
+    }
+    
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        openPreferences()
+        return false
+    }
+    
+    func openPreferences() {
+        let storyboard = NSStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateController(withIdentifier: "MainWindow") as? ViewController
+        let window = NSWindow(contentViewController: vc!)
+        
+        window.makeKeyAndOrderFront(self)
+        
+        self.windowController = NSWindowController(window: window)
+        self.windowController!.showWindow(self)
+    }
+    
+    // 保存されたUserDefaultを全削除する。
+    func resetUserDefault() {
+        let appDomain:String = Bundle.main.bundleIdentifier!
+        UserDefaults.standard.removePersistentDomain(forName: appDomain)
     }
     
     @IBAction func open(_ sender: NSButton) {
@@ -49,6 +80,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         } else {
             print("invalid url")
         }
+    }
+    @IBAction func openPreferencesSerector(_ sender: NSButton) {
+        openPreferences()
+        NSApp.activate(ignoringOtherApps: true)
     }
     
     @IBAction func launch(_ sender: NSButton) {
