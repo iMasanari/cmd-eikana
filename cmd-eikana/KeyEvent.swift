@@ -33,7 +33,7 @@ class KeyEvent: NSObject {
             
             self.watch()
             
-            addLaunchAtStartup()
+//            addLaunchAtStartup()
             loginItem.state = 1
         }
     }

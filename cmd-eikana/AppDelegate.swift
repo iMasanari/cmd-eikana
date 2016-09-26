@@ -7,7 +7,6 @@
 //
 
 import Cocoa
-//import ServiceManagement
 
 var loginItem = NSMenuItem()
 
@@ -22,15 +21,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         _ = KeyEvent()
         
+        setLaunchAtStartup(true)
+        
         let menu = NSMenu()
         self.statusItem.title = "⌘"
         self.statusItem.highlightMode = true
         self.statusItem.menu = menu
         
-        loginItem = menu.addItem(withTitle: "ログイン時に開く", action: #selector(AppDelegate.launch(_:)), keyEquivalent: "")
-        loginItem.state = applicationIsInStartUpItems() ? 1 : 0
-        
-        menu.addItem(NSMenuItem.separator())
+//        loginItem = menu.addItem(withTitle: "ログイン時に開く", action: #selector(AppDelegate.launch(_:)), keyEquivalent: "")
+//        loginItem.state = applicationIsInStartUpItems() ? 1 : 0
+//        
+//        menu.addItem(NSMenuItem.separator())
         
         menu.addItem(withTitle: "About ⌘英かな 1.0.1", action: #selector(AppDelegate.open(_:)), keyEquivalent: "")
         menu.addItem(withTitle: "Quit", action: #selector(AppDelegate.quit(_:)), keyEquivalent: "")
@@ -53,11 +54,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBAction func launch(_ sender: NSButton) {
         if sender.state == 0 {
             sender.state = 1
-            addLaunchAtStartup()
+//            addLaunchAtStartup()
         }
         else {
             sender.state = 0
-            removeLaunchAtStartup()
+//            removeLaunchAtStartup()
         }
     }
     
