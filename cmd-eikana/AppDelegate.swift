@@ -41,7 +41,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 //        
 //        menu.addItem(NSMenuItem.separator())
         
-        menu.addItem(withTitle: "About ⌘英かな 1.0.2", action: #selector(AppDelegate.open(_:)), keyEquivalent: "")
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
+        
+        menu.addItem(withTitle: "About ⌘英かな " + version, action: #selector(AppDelegate.open(_:)), keyEquivalent: "")
         menu.addItem(withTitle: "Preferences...", action: #selector(AppDelegate.openPreferencesSerector(_:)), keyEquivalent: "")
         menu.addItem(withTitle: "Quit", action: #selector(AppDelegate.quit(_:)), keyEquivalent: "")
     }
