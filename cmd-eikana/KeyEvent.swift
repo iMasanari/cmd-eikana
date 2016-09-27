@@ -32,13 +32,19 @@ class KeyEvent: NSObject {
             print("アクセシビリティに設定されました")
             
             self.watch()
-            
-//            addLaunchAtStartup()
-            loginItem.state = 1
         }
     }
     
     func watch () {
+        let resetGlobalHandler = {(evevt: NSEvent!) -> Void in
+            self.keyCode = nil
+        }
+        
+        let resetLocalHandler = {(evevt: NSEvent!) -> NSEvent? in
+            self.keyCode = nil
+            return evevt
+        }
+        
         let masks = [
             NSEventMask.keyDown,
             NSEventMask.keyUp,
@@ -51,15 +57,13 @@ class KeyEvent: NSObject {
             NSEventMask.scrollWheel
             // NSEventMask.MouseMovedMask,
         ]
-        let handler = {(evt: NSEvent!) -> Void in
-            self.keyCode = nil
-        }
         
         for mask in masks {
-            NSEvent.addGlobalMonitorForEvents(matching: mask, handler: handler)
+            NSEvent.addGlobalMonitorForEvents(matching: mask, handler: resetGlobalHandler)
+            NSEvent.addLocalMonitorForEvents(matching: mask, handler: resetLocalHandler)
         }
         
-        NSEvent.addGlobalMonitorForEvents(matching: NSEventMask.flagsChanged, handler: {(evevt: NSEvent!) -> Void in
+        let flagsChangedHandler = {(evevt: NSEvent!) -> Void in
             if evevt.keyCode == 55 { // 右コマンドキー
                 if evevt.modifierFlags.contains(.command) {
                     self.keyCode = 55
@@ -89,7 +93,14 @@ class KeyEvent: NSObject {
             else {
                 self.keyCode = nil
             }
+        }
+        
+        NSEvent.addGlobalMonitorForEvents(matching: NSEventMask.flagsChanged, handler: flagsChangedHandler)
+        NSEvent.addLocalMonitorForEvents(matching: NSEventMask.flagsChanged, handler: {(evevt: NSEvent!) -> NSEvent? in
+            flagsChangedHandler(evevt)
+            return evevt
         })
+        
         
     }
 }
