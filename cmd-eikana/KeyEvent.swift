@@ -6,15 +6,16 @@
 //  Copyright (c) 2016 iMasanari
 //
 
-// watchCGEventCallbackをクラスの中に入れ、CGEvent.tapCreateのcallbackに設定すると
-// `A C function pointer can only be formed from a reference to a 'func' or a literal closure`
-// エラーが出たため、watchCGEventCallback、keyCodeなどをクラスの外に
-
 import Cocoa
 
-var KeyEventKeyCode: Int64? = nil
+let singleModifierKeyUpActions: [Int64: () -> Void] = [
+    55 /* left command */: postKeyboardEvent(102 /* jis-eisuu */),
+    54 /* right command */: postKeyboardEvent(104 /* jis-kana */),
+    // 59 /* left control */: postKeyboardEvent(49 /* space */, flags: CGEventFlags.maskCommand)
+]
 
 class KeyEvent: NSObject {
+    var keyCode: Int64? = nil
     
     override init() {
         super.init()
@@ -59,13 +60,22 @@ class KeyEvent: NSObject {
             eventMask |= (1 << mask.rawValue)
         }
         
-        guard let eventTap = CGEvent.tapCreate(tap: .cgSessionEventTap,
-                                               place: .headInsertEventTap,
-                                               options: .defaultTap,
-                                               eventsOfInterest: CGEventMask(eventMask),
-                                               callback: KeyEventWatchCGEventCallback,
-                                               userInfo: nil)
-            else {
+        let observer = UnsafeMutableRawPointer(Unmanaged.passRetained(self).toOpaque())
+        
+        guard let eventTap = CGEvent.tapCreate(
+            tap: .cgSessionEventTap,
+            place: .headInsertEventTap,
+            options: .defaultTap,
+            eventsOfInterest: CGEventMask(eventMask),
+            callback: { (proxy: CGEventTapProxy, type: CGEventType, event: CGEvent, refcon: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? in
+                if let observer = refcon {
+                    let mySelf = Unmanaged<KeyEvent>.fromOpaque(observer).takeUnretainedValue()
+                    return mySelf.callback(proxy: proxy, type: type, event: event, refcon: nil)
+                }
+                return Unmanaged.passRetained(event)
+            },
+            userInfo: observer
+        ) else {
                 print("failed to create event tap")
                 exit(1)
         }
@@ -76,77 +86,50 @@ class KeyEvent: NSObject {
         CGEvent.tapEnable(tap: eventTap, enable: true)
         CFRunLoopRun()
     }
-}
-
-func inputCommandSpace() {
-    print("前の入力ソースを選択")
     
-    let loc = CGEventTapLocation.cghidEventTap
-    let keyDownEvent = CGEvent(keyboardEventSource: nil, virtualKey: 0x31, keyDown: true)!
-    let keyUpEvent = CGEvent(keyboardEventSource: nil, virtualKey: 0x31, keyDown: false)!
-    
-    keyDownEvent.flags = CGEventFlags.maskCommand
-    keyUpEvent.flags = CGEventFlags(rawValue: 0)
-    
-    keyDownEvent.post(tap: loc)
-    keyUpEvent.post(tap: loc)
-}
-
-func inputJisEisuuKey() {
-    print("英数")
-    
-    let loc = CGEventTapLocation.cghidEventTap
-    let keyDownEvent = CGEvent(keyboardEventSource: nil, virtualKey: 102, keyDown: true)!
-    let keyUpEvent = CGEvent(keyboardEventSource: nil, virtualKey: 102, keyDown: false)!
-    
-    keyDownEvent.flags = CGEventFlags(rawValue: 0)
-    keyUpEvent.flags = CGEventFlags(rawValue: 0)
-    
-    keyDownEvent.post(tap: loc)
-    keyUpEvent.post(tap: loc)
-}
-
-func inputJisKanaKey() {
-    print("かな")
-    
-    let loc = CGEventTapLocation.cghidEventTap
-    let keyDownEvent = CGEvent(keyboardEventSource: nil, virtualKey: 104, keyDown: true)!
-    let keyUpEvent = CGEvent(keyboardEventSource: nil, virtualKey: 104, keyDown: false)!
-    
-    keyDownEvent.flags = CGEventFlags(rawValue: 0)
-    keyUpEvent.flags = CGEventFlags(rawValue: 0)
-    
-    keyDownEvent.post(tap: loc)
-    keyUpEvent.post(tap: loc)
-}
-
-func KeyEventWatchCGEventCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent, refcon: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
-    if [.flagsChanged].contains(type) {
-        let keyCode = event.getIntegerValueField(.keyboardEventKeycode)
-        let flags = event.flags.rawValue
+    func callback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent, refcon: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
+        if [.flagsChanged].contains(type) {
+            let keyCode = event.getIntegerValueField(.keyboardEventKeycode)
+            
+            if let action = singleModifierKeyUpActions[keyCode] {
+                if event.flags.rawValue & modifierMasks[keyCode]!.rawValue != 0 {
+                    self.keyCode = keyCode
+                }
+                else if keyCode == self.keyCode {
+                    action()
+                }
+            }
+        }
+        else {
+            self.keyCode = nil
+        }
         
-        if keyCode == 55 { // left command key
-            if flags & CGEventFlags.maskCommand.rawValue != 0 {
-                KeyEventKeyCode = keyCode
-            }
-            else if keyCode == KeyEventKeyCode {
-                inputJisEisuuKey()
-                // inputCommandSpace()
-            }
-        }
-        else if keyCode == 54 { // right command key
-            if flags & CGEventFlags.maskCommand.rawValue != 0 {
-                KeyEventKeyCode = keyCode
-            }
-            else if keyCode == KeyEventKeyCode {
-                inputJisKanaKey()
-            }
-        }
+        return Unmanaged.passRetained(event)
     }
-    else {
-        KeyEventKeyCode = nil
-    }
-    
-    return Unmanaged.passRetained(event)
 }
 
+let modifierMasks: [Int64: CGEventFlags] = [
+    54: CGEventFlags.maskCommand,
+    55: CGEventFlags.maskCommand,
+    56: CGEventFlags.maskShift,
+    60: CGEventFlags.maskShift,
+    59: CGEventFlags.maskControl,
+    62: CGEventFlags.maskControl,
+    58: CGEventFlags.maskAlternate,
+    61: CGEventFlags.maskAlternate,
+    63: CGEventFlags.maskSecondaryFn
+]
+
+func postKeyboardEvent(_ virtualKey: CGKeyCode, flags: CGEventFlags = CGEventFlags()) -> () -> Void {
+    let loc = CGEventTapLocation.cghidEventTap
+    let keyDownEvent = CGEvent(keyboardEventSource: nil, virtualKey: virtualKey, keyDown: true)!
+    let keyUpEvent = CGEvent(keyboardEventSource: nil, virtualKey: virtualKey, keyDown: false)!
+    
+    keyDownEvent.flags = flags
+    keyUpEvent.flags = CGEventFlags()
+    
+    return { () -> Void in
+        keyDownEvent.post(tap: loc)
+        keyUpEvent.post(tap: loc)
+    }
+}
