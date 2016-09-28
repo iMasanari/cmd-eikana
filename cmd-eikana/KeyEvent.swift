@@ -6,15 +6,16 @@
 //  Copyright (c) 2016 iMasanari
 //
 
-// myCGEventCallbackをクラスの中に入れ、CGEvent.tapCreateのcallbackに設定すると
+// watchCGEventCallbackをクラスの中に入れ、CGEvent.tapCreateのcallbackに設定すると
 // `A C function pointer can only be formed from a reference to a 'func' or a literal closure`
-// エラーが出たため、myCGEventCallback、keyCodeなどをクラスの外に
+// エラーが出たため、watchCGEventCallback、keyCodeなどをクラスの外に
 
 import Cocoa
 
 var KeyEventKeyCode: Int64? = nil
 
 class KeyEvent: NSObject {
+    
     override init() {
         super.init()
         
@@ -38,64 +39,11 @@ class KeyEvent: NSObject {
         }
     }
     
-    func inputJisEisuuKey() {
-        print("英数")
-        
-        let loc = CGEventTapLocation.cghidEventTap
-        
-        CGEvent(keyboardEventSource: nil, virtualKey: 102, keyDown: true)?.post(tap: loc)
-        CGEvent(keyboardEventSource: nil, virtualKey: 102, keyDown: false)?.post(tap: loc)
-    }
-    
-    func inputJisKanaKey() {
-        print("かな")
-        
-        let loc = CGEventTapLocation.cghidEventTap
-        
-        CGEvent(keyboardEventSource: nil, virtualKey: 104, keyDown: true)?.post(tap: loc)
-        CGEvent(keyboardEventSource: nil, virtualKey: 104, keyDown: false)?.post(tap: loc)
-    }
-    
     func watch() {
-        /////////////////////////////////////////
-        // To monitor the command key
-        /////////////////////////////////////////
-        
-        let flagsChangedHandler = {(evevt: NSEvent!) -> Void in
-            if evevt.keyCode == 55 { // left command key
-                if evevt.modifierFlags.contains(.command) {
-                    KeyEventKeyCode = 55
-                }
-                else if KeyEventKeyCode == 55 {
-                    self.inputJisEisuuKey()
-                }
-            }
-            else if evevt.keyCode == 54 { // right command key
-                if evevt.modifierFlags.contains(.command) {
-                    KeyEventKeyCode = 54
-                }
-                else if KeyEventKeyCode == 54 {
-                    self.inputJisKanaKey()
-                }
-            }
-            else {
-                KeyEventKeyCode = nil
-            }
-        }
-        
-        NSEvent.addGlobalMonitorForEvents(matching: NSEventMask.flagsChanged, handler: flagsChangedHandler)
-        NSEvent.addLocalMonitorForEvents(matching: NSEventMask.flagsChanged, handler: {(evevt: NSEvent!) -> NSEvent? in
-            flagsChangedHandler(evevt)
-            return evevt
-        })
-        
-        /////////////////////////////////////////
-        // To monitor the another action
-        /////////////////////////////////////////
-        
         let eventMaskList = [
             CGEventType.keyDown,
             CGEventType.keyUp,
+            CGEventType.flagsChanged,
             CGEventType.leftMouseDown,
             CGEventType.leftMouseUp,
             CGEventType.rightMouseDown,
@@ -115,7 +63,7 @@ class KeyEvent: NSObject {
                                                place: .headInsertEventTap,
                                                options: .defaultTap,
                                                eventsOfInterest: CGEventMask(eventMask),
-                                               callback: watchAnotherActionCallback,
+                                               callback: KeyEventWatchCGEventCallback,
                                                userInfo: nil)
             else {
                 print("failed to create event tap")
@@ -130,8 +78,75 @@ class KeyEvent: NSObject {
     }
 }
 
-func watchAnotherActionCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent, refcon: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
-    KeyEventKeyCode = nil
+func inputCommandSpace() {
+    print("前の入力ソースを選択")
+    
+    let loc = CGEventTapLocation.cghidEventTap
+    let keyDownEvent = CGEvent(keyboardEventSource: nil, virtualKey: 0x31, keyDown: true)!
+    let keyUpEvent = CGEvent(keyboardEventSource: nil, virtualKey: 0x31, keyDown: false)!
+    
+    keyDownEvent.flags = CGEventFlags.maskCommand
+    keyUpEvent.flags = CGEventFlags(rawValue: 0)
+    
+    keyDownEvent.post(tap: loc)
+    keyUpEvent.post(tap: loc)
+}
+
+func inputJisEisuuKey() {
+    print("英数")
+    
+    let loc = CGEventTapLocation.cghidEventTap
+    let keyDownEvent = CGEvent(keyboardEventSource: nil, virtualKey: 102, keyDown: true)!
+    let keyUpEvent = CGEvent(keyboardEventSource: nil, virtualKey: 102, keyDown: false)!
+    
+    keyDownEvent.flags = CGEventFlags(rawValue: 0)
+    keyUpEvent.flags = CGEventFlags(rawValue: 0)
+    
+    keyDownEvent.post(tap: loc)
+    keyUpEvent.post(tap: loc)
+}
+
+func inputJisKanaKey() {
+    print("かな")
+    
+    let loc = CGEventTapLocation.cghidEventTap
+    let keyDownEvent = CGEvent(keyboardEventSource: nil, virtualKey: 104, keyDown: true)!
+    let keyUpEvent = CGEvent(keyboardEventSource: nil, virtualKey: 104, keyDown: false)!
+    
+    keyDownEvent.flags = CGEventFlags(rawValue: 0)
+    keyUpEvent.flags = CGEventFlags(rawValue: 0)
+    
+    keyDownEvent.post(tap: loc)
+    keyUpEvent.post(tap: loc)
+}
+
+func KeyEventWatchCGEventCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent, refcon: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
+    if [.flagsChanged].contains(type) {
+        let keyCode = event.getIntegerValueField(.keyboardEventKeycode)
+        let flags = event.flags.rawValue
+        
+        if keyCode == 55 { // left command key
+            if flags & CGEventFlags.maskCommand.rawValue != 0 {
+                KeyEventKeyCode = keyCode
+            }
+            else if keyCode == KeyEventKeyCode {
+                inputJisEisuuKey()
+                // inputCommandSpace()
+            }
+        }
+        else if keyCode == 54 { // right command key
+            if flags & CGEventFlags.maskCommand.rawValue != 0 {
+                KeyEventKeyCode = keyCode
+            }
+            else if keyCode == KeyEventKeyCode {
+                inputJisKanaKey()
+            }
+        }
+    }
+    else {
+        KeyEventKeyCode = nil
+    }
     
     return Unmanaged.passRetained(event)
 }
+
