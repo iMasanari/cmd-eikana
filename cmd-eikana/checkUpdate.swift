@@ -13,7 +13,7 @@
 
 import Cocoa
 
-func checkUpdate() {
+func checkUpdate(_ callback: ((_ isNewVer: Bool) -> Void)? = nil) {
     let url = URL(string: "https://ei-kana.appspot.com/update.json")!
     let request = URLRequest(url: url)
     
@@ -33,7 +33,7 @@ func checkUpdate() {
         
         if newVersion != version {
             let alert = NSAlert()
-            alert.messageText = "⌘英かな ver. \(newVersion) が利用可能です"
+            alert.messageText = "⌘英かな ver.\(newVersion) が利用可能です"
             alert.informativeText = description
             alert.addButton(withTitle: "DLページへ")
             alert.addButton(withTitle: "キャンセル")
@@ -43,6 +43,10 @@ func checkUpdate() {
             if (ret == NSAlertFirstButtonReturn) {
                 NSWorkspace.shared().open(URL(string: "https://ei-kana.appspot.com")!)
             }
+        }
+        
+        if let callback = callback {
+            callback(newVersion != version)
         }
     }
     

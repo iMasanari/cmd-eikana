@@ -674,7 +674,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UcU-gG-BmS">
-                                <rect key="frame" x="18" y="234" width="321" height="18"/>
+                                <rect key="frame" x="18" y="234" width="215" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="メニューバーにアイコンを表示する" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Swa-9Q-bjA">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -706,11 +706,35 @@
                                     <action selector="clickLunchAtStartup:" target="XfG-lQ-9wD" id="8qr-Ns-qS7"/>
                                 </connections>
                             </button>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SNT-SJ-fye">
+                                <rect key="frame" x="18" y="194" width="215" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="起動時にアップデートを確認する" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="6Pk-W2-evg">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" size="13" name=".HiraKakuInterface-W3"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="clickCheckUpdateAtlaunch:" target="XfG-lQ-9wD" id="3sC-Xh-Lyf"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jqL-vq-Vub">
+                                <rect key="frame" x="377" y="186" width="89" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="確認する" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4Dh-kS-y64">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" size="13" name=".HiraKakuInterface-W3"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="checkUpdateButton:" target="XfG-lQ-9wD" id="pZz-NI-ieh"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <connections>
+                        <outlet property="checkUpdateAtlaunch" destination="SNT-SJ-fye" id="0Od-Yk-7xC"/>
                         <outlet property="lunchAtStartup" destination="a6E-DH-qqL" id="Ihx-sP-qU6"/>
                         <outlet property="showIcon" destination="UcU-gG-BmS" id="piI-ho-FNd"/>
+                        <outlet property="updateButton" destination="jqL-vq-Vub" id="S7a-cg-QvP"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

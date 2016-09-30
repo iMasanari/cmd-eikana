@@ -13,6 +13,8 @@ class ViewController: NSViewController {
     
     @IBOutlet weak var showIcon: NSButton!
     @IBOutlet weak var lunchAtStartup: NSButton!
+    @IBOutlet weak var checkUpdateAtlaunch: NSButton!
+    @IBOutlet weak var updateButton: NSButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +30,7 @@ class ViewController: NSViewController {
         }
         
         lunchAtStartup.state = userDefaults.integer(forKey: "lunchAtStartup")
+        checkUpdateAtlaunch.state = userDefaults.integer(forKey: "checkUpdateAtlaunch")
     }
 
     override var representedObject: Any? {
@@ -45,8 +48,28 @@ class ViewController: NSViewController {
         setLaunchAtStartup(lunchAtStartup.state == NSOnState)
         userDefaults.set(lunchAtStartup.state, forKey: "lunchAtStartup")
     }
+    @IBAction func clickCheckUpdateAtlaunch(_ sender: AnyObject) {
+        userDefaults.set(checkUpdateAtlaunch.state, forKey: "checkUpdateAtlaunch")
+    }
+    
     @IBAction func quit(_ sender: AnyObject) {
         NSApplication.shared().terminate(self)
+    }
+    
+    @IBAction func checkUpdateButton(_ sender: AnyObject) {
+        updateButton.isEnabled = false
+        checkUpdate({ (isNewVer: Bool) -> Void in
+            self.updateButton.isEnabled = true
+            if !isNewVer {
+                let alert = NSAlert()
+                
+                alert.messageText = "最新バージョンです"
+                let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
+                alert.informativeText = "ver.\(version)"
+                
+                alert.runModal()
+            }
+        })
     }
 
 }

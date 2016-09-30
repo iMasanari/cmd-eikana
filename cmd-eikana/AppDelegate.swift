@@ -27,6 +27,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             setLaunchAtStartup(true)
             userDefaults.set(1, forKey: "lunchAtStartup")
         }
+        
+        let checkUpdateState = userDefaults.object(forKey: "checkUpdateAtlaunch")
+        
+        if checkUpdateState == nil {
+            userDefaults.set(1, forKey: "checkUpdateAtlaunch")
+            checkUpdate()
+        }
+        else if checkUpdateState as! Int == 1 {
+            checkUpdate()
+        }
+        
         let menu = NSMenu()
         statusItem.title = "⌘"
         statusItem.highlightMode = true
@@ -42,8 +53,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         menu.addItem(withTitle: "About ⌘英かな " + version, action: #selector(AppDelegate.open(_:)), keyEquivalent: "")
         menu.addItem(withTitle: "Preferences...", action: #selector(AppDelegate.openPreferencesSerector(_:)), keyEquivalent: "")
         menu.addItem(withTitle: "Quit", action: #selector(AppDelegate.quit(_:)), keyEquivalent: "")
-        
-        checkUpdate()
         
         _ = KeyEvent()
     }
