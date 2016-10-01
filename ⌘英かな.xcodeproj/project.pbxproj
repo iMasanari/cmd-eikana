@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		620E0AD71D9E97BA0067F88B /* checkUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620E0AD61D9E97BA0067F88B /* checkUpdate.swift */; };
+		620E0B441D9F2F8F0067F88B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 620E0B431D9F2F8F0067F88B /* AppDelegate.m */; };
+		620E0B471D9F2F8F0067F88B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 620E0B461D9F2F8F0067F88B /* main.m */; };
+		620E0B491D9F2F8F0067F88B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 620E0B481D9F2F8F0067F88B /* Assets.xcassets */; };
+		620E0B4C1D9F2F8F0067F88B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 620E0B4A1D9F2F8F0067F88B /* MainMenu.xib */; };
+		620E0B511D9F31E30067F88B /* cmd-eikana-helper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 620E0B401D9F2F8F0067F88B /* cmd-eikana-helper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		627265F61D3CC84000703F85 /* KeyEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627265F51D3CC84000703F85 /* KeyEvent.swift */; };
-		628928531D99017400313C05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628928521D99017400313C05 /* AppDelegate.swift */; };
-		628928551D99017400313C05 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628928541D99017400313C05 /* ViewController.swift */; };
-		628928571D99017400313C05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 628928561D99017400313C05 /* Assets.xcassets */; };
-		6289285A1D99017400313C05 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 628928581D99017400313C05 /* Main.storyboard */; };
-		628928601D99022700313C05 /* cmd-eikana-helper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 628928501D99017400313C05 /* cmd-eikana-helper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6294281B1D387503001BD4E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6294281A1D387503001BD4E9 /* AppDelegate.swift */; };
 		6294281D1D387503001BD4E9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6294281C1D387503001BD4E9 /* ViewController.swift */; };
 		6294281F1D387503001BD4E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6294281E1D387503001BD4E9 /* Assets.xcassets */; };
@@ -39,7 +39,7 @@
 			dstPath = Contents/Library/LoginItems;
 			dstSubfolderSpec = 1;
 			files = (
-				628928601D99022700313C05 /* cmd-eikana-helper.app in CopyFiles */,
+				620E0B511D9F31E30067F88B /* cmd-eikana-helper.app in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -47,13 +47,14 @@
 
 /* Begin PBXFileReference section */
 		620E0AD61D9E97BA0067F88B /* checkUpdate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = checkUpdate.swift; sourceTree = "<group>"; };
+		620E0B401D9F2F8F0067F88B /* cmd-eikana-helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "cmd-eikana-helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		620E0B421D9F2F8F0067F88B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		620E0B431D9F2F8F0067F88B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		620E0B461D9F2F8F0067F88B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		620E0B481D9F2F8F0067F88B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		620E0B4B1D9F2F8F0067F88B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		620E0B4D1D9F2F8F0067F88B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		627265F51D3CC84000703F85 /* KeyEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyEvent.swift; sourceTree = "<group>"; };
-		628928501D99017400313C05 /* cmd-eikana-helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "cmd-eikana-helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		628928521D99017400313C05 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		628928541D99017400313C05 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		628928561D99017400313C05 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		628928591D99017400313C05 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		6289285B1D99017400313C05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		629428171D387503001BD4E9 /* ⌘英かな.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "⌘英かな.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6294281A1D387503001BD4E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6294281C1D387503001BD4E9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -67,7 +68,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		6289284D1D99017400313C05 /* Frameworks */ = {
+		620E0B3D1D9F2F8F0067F88B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -91,24 +92,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		628928511D99017400313C05 /* cmd-eikana-helper */ = {
+		620E0B411D9F2F8F0067F88B /* cmd-eikana-helper */ = {
 			isa = PBXGroup;
 			children = (
-				628928521D99017400313C05 /* AppDelegate.swift */,
-				628928541D99017400313C05 /* ViewController.swift */,
-				628928561D99017400313C05 /* Assets.xcassets */,
-				628928581D99017400313C05 /* Main.storyboard */,
-				6289285B1D99017400313C05 /* Info.plist */,
+				620E0B421D9F2F8F0067F88B /* AppDelegate.h */,
+				620E0B431D9F2F8F0067F88B /* AppDelegate.m */,
+				620E0B481D9F2F8F0067F88B /* Assets.xcassets */,
+				620E0B4A1D9F2F8F0067F88B /* MainMenu.xib */,
+				620E0B4D1D9F2F8F0067F88B /* Info.plist */,
+				620E0B451D9F2F8F0067F88B /* Supporting Files */,
 			);
 			path = "cmd-eikana-helper";
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
+		};
+		620E0B451D9F2F8F0067F88B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				620E0B461D9F2F8F0067F88B /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
 		};
 		6294280E1D387503001BD4E9 = {
 			isa = PBXGroup;
 			children = (
 				629428191D387503001BD4E9 /* ⌘英かな */,
-				628928511D99017400313C05 /* cmd-eikana-helper */,
 				6294282B1D387503001BD4E9 /* ⌘英かなTests */,
+				620E0B411D9F2F8F0067F88B /* cmd-eikana-helper */,
 				629428181D387503001BD4E9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -118,7 +128,7 @@
 			children = (
 				629428171D387503001BD4E9 /* ⌘英かな.app */,
 				629428281D387503001BD4E9 /* ⌘英かな.xctest */,
-				628928501D99017400313C05 /* cmd-eikana-helper.app */,
+				620E0B401D9F2F8F0067F88B /* cmd-eikana-helper.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -152,13 +162,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6289284F1D99017400313C05 /* cmd-eikana-helper */ = {
+		620E0B3F1D9F2F8F0067F88B /* cmd-eikana-helper */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6289285E1D99017400313C05 /* Build configuration list for PBXNativeTarget "cmd-eikana-helper" */;
+			buildConfigurationList = 620E0B4E1D9F2F8F0067F88B /* Build configuration list for PBXNativeTarget "cmd-eikana-helper" */;
 			buildPhases = (
-				6289284C1D99017400313C05 /* Sources */,
-				6289284D1D99017400313C05 /* Frameworks */,
-				6289284E1D99017400313C05 /* Resources */,
+				620E0B3C1D9F2F8F0067F88B /* Sources */,
+				620E0B3D1D9F2F8F0067F88B /* Frameworks */,
+				620E0B3E1D9F2F8F0067F88B /* Resources */,
 			);
 			buildRules = (
 			);
@@ -166,7 +176,7 @@
 			);
 			name = "cmd-eikana-helper";
 			productName = "cmd-eikana-helper";
-			productReference = 628928501D99017400313C05 /* cmd-eikana-helper.app */;
+			productReference = 620E0B401D9F2F8F0067F88B /* cmd-eikana-helper.app */;
 			productType = "com.apple.product-type.application";
 		};
 		629428161D387503001BD4E9 /* ⌘英かな */ = {
@@ -215,7 +225,7 @@
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = eikana;
 				TargetAttributes = {
-					6289284F1D99017400313C05 = {
+					620E0B3F1D9F2F8F0067F88B = {
 						CreatedOnToolsVersion = 8.0;
 						ProvisioningStyle = Automatic;
 					};
@@ -250,18 +260,18 @@
 			targets = (
 				629428161D387503001BD4E9 /* ⌘英かな */,
 				629428271D387503001BD4E9 /* ⌘英かなTests */,
-				6289284F1D99017400313C05 /* cmd-eikana-helper */,
+				620E0B3F1D9F2F8F0067F88B /* cmd-eikana-helper */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		6289284E1D99017400313C05 /* Resources */ = {
+		620E0B3E1D9F2F8F0067F88B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				628928571D99017400313C05 /* Assets.xcassets in Resources */,
-				6289285A1D99017400313C05 /* Main.storyboard in Resources */,
+				620E0B491D9F2F8F0067F88B /* Assets.xcassets in Resources */,
+				620E0B4C1D9F2F8F0067F88B /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,12 +294,12 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		6289284C1D99017400313C05 /* Sources */ = {
+		620E0B3C1D9F2F8F0067F88B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				628928551D99017400313C05 /* ViewController.swift in Sources */,
-				628928531D99017400313C05 /* AppDelegate.swift in Sources */,
+				620E0B471D9F2F8F0067F88B /* main.m in Sources */,
+				620E0B441D9F2F8F0067F88B /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,12 +334,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		628928581D99017400313C05 /* Main.storyboard */ = {
+		620E0B4A1D9F2F8F0067F88B /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				628928591D99017400313C05 /* Base */,
+				620E0B4B1D9F2F8F0067F88B /* Base */,
 			);
-			name = Main.storyboard;
+			name = MainMenu.xib;
 			sourceTree = "<group>";
 		};
 		629428201D387503001BD4E9 /* Main.storyboard */ = {
@@ -343,7 +353,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		6289285C1D99017400313C05 /* Debug */ = {
+		620E0B4F1D9F2F8F0067F88B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -355,12 +365,10 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.imasanari.cmd-eikana-helper";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
-		6289285D1D99017400313C05 /* Release */ = {
+		620E0B501D9F2F8F0067F88B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -372,7 +380,6 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.imasanari.cmd-eikana-helper";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -518,14 +525,13 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6289285E1D99017400313C05 /* Build configuration list for PBXNativeTarget "cmd-eikana-helper" */ = {
+		620E0B4E1D9F2F8F0067F88B /* Build configuration list for PBXNativeTarget "cmd-eikana-helper" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6289285C1D99017400313C05 /* Debug */,
-				6289285D1D99017400313C05 /* Release */,
+				620E0B4F1D9F2F8F0067F88B /* Debug */,
+				620E0B501D9F2F8F0067F88B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
 		629428121D387503001BD4E9 /* Build configuration list for PBXProject "⌘英かな" */ = {
 			isa = XCConfigurationList;
