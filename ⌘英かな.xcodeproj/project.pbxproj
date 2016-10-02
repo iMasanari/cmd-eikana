@@ -532,6 +532,7 @@
 				620E0B501D9F2F8F0067F88B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		629428121D387503001BD4E9 /* Build configuration list for PBXProject "⌘英かな" */ = {
 			isa = XCConfigurationList;

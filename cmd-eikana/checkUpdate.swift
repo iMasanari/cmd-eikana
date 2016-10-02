@@ -13,7 +13,7 @@
 
 import Cocoa
 
-func checkUpdate(_ callback: ((_ isNewVer: Bool) -> Void)? = nil) {
+func checkUpdate(_ callback: ((_ isNewVer: Bool?) -> Void)? = nil) {
     let url = URL(string: "https://ei-kana.appspot.com/update.json")!
     let request = URLRequest(url: url)
     
@@ -23,15 +23,19 @@ func checkUpdate(_ callback: ((_ isNewVer: Bool) -> Void)? = nil) {
         var description = ""
         
         do {
-            let json = try JSONSerialization.jsonObject(with: data!, options: []) as! [String: Any]
-            newVersion = json["version"] as! String
-            description = json["description"] as! String
+            if let data = data {
+                let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
+                newVersion = json["version"] as! String
+                description = json["description"] as! String
+            }
         } catch let error as NSError {
             print(error.debugDescription)
             return;
         }
         
-        if newVersion != version {
+        let isAbleUpdate: Bool? = (newVersion == "") ? nil : newVersion != version
+        
+        if isAbleUpdate == true {
             let alert = NSAlert()
             alert.messageText = "⌘英かな ver.\(newVersion) が利用可能です"
             alert.informativeText = description
@@ -46,7 +50,7 @@ func checkUpdate(_ callback: ((_ isNewVer: Bool) -> Void)? = nil) {
         }
         
         if let callback = callback {
-            callback(newVersion != version)
+            callback(isAbleUpdate)
         }
     }
     

@@ -58,9 +58,17 @@ class ViewController: NSViewController {
     
     @IBAction func checkUpdateButton(_ sender: AnyObject) {
         updateButton.isEnabled = false
-        checkUpdate({ (isNewVer: Bool) -> Void in
+        checkUpdate({ (isNewVer: Bool?) -> Void in
             self.updateButton.isEnabled = true
-            if !isNewVer {
+            if isNewVer == nil {
+                let alert = NSAlert()
+                
+                alert.messageText = "通信に失敗しました"
+                alert.informativeText = "時間をおいて試してください"
+                
+                alert.runModal()
+            }
+            else if isNewVer == false {
                 let alert = NSAlert()
                 
                 alert.messageText = "最新バージョンです"
@@ -71,6 +79,5 @@ class ViewController: NSViewController {
             }
         })
     }
-
 }
 
