@@ -104,17 +104,22 @@ class KeyEvent: NSObject {
         let keyCode = CGKeyCode(event.keyCode)
         
         if let shortcut = oneShotModifiers[keyCode] {
-            if event.modifierFlags.contains(modifierMasks[keyCode]!) {
-                self.keyCode = keyCode
-            }
-            else if keyCode == self.keyCode {
+            if keyCode == self.keyCode {
                 shortcut.postEvent()
             }
+            else if event.modifierFlags.contains(modifierMasks[keyCode]!) {
+                self.keyCode = keyCode
+            }
+        }
+        else {
+            self.keyCode = nil
         }
     }
     func anotherActionCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent, refcon: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
         #if DEBUG
-            if type == CGEventType.keyDown {print(KeyboardShortcut(event).toString())}
+            if type == CGEventType.keyDown {
+                print(KeyboardShortcut(event).toString())
+            }
         #endif
         
         if let textFeild = selectKeyTextField {
