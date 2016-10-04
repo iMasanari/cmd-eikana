@@ -49,6 +49,9 @@ class KeyTextField: NSComboBox {
             case "JIS_KANA":
                 selectKeyTextField = (textField: self, KeyboardShortcut(keyCode: 104))
                 break
+            case "⇧JIS_KANA":
+                selectKeyTextField = (textField: self, KeyboardShortcut(keyCode: 104, flags: CGEventFlags.maskShift))
+                break
             case "⌘SPACE":
                 selectKeyTextField = (textField: self, KeyboardShortcut(keyCode: 49, flags: CGEventFlags.maskCommand))
                 break

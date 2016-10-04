@@ -10,6 +10,7 @@ import Cocoa
 
 class KeyEvent: NSObject {
     var keyCode: CGKeyCode? = nil
+    var isFlagsChanged = false
     
     override init() {
         super.init()
@@ -28,13 +29,25 @@ class KeyEvent: NSObject {
     func watchAXIsProcess(_ timer: Timer) {
         if AXIsProcessTrusted() {
             timer.invalidate()
-            print("アクセシビリティに設定されました")
             
             self.watch()
         }
     }
     
     func watch() {
+        /*
+         watch modifier
+         */
+        NSEvent.addGlobalMonitorForEvents(matching: NSEventMask.flagsChanged, handler: flagsChangedCallback)
+        NSEvent.addLocalMonitorForEvents(matching: NSEventMask.flagsChanged, handler: {(evevt: NSEvent!) -> NSEvent? in
+            self.flagsChangedCallback(evevt)
+            
+            return (selectKeyTextField == nil) ? evevt : nil
+        })
+        
+        /*
+         watch another action
+         */
         let eventMaskList = [
             CGEventType.keyDown,
             CGEventType.keyUp,
@@ -64,7 +77,7 @@ class KeyEvent: NSObject {
             callback: { (proxy: CGEventTapProxy, type: CGEventType, event: CGEvent, refcon: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? in
                 if let observer = refcon {
                     let mySelf = Unmanaged<KeyEvent>.fromOpaque(observer).takeUnretainedValue()
-                    return mySelf.callback(proxy: proxy, type: type, event: event, refcon: nil)
+                    return mySelf.anotherActionCallback(proxy: proxy, type: type, event: event, refcon: nil)
                 }
                 return Unmanaged.passRetained(event)
             },
@@ -81,8 +94,28 @@ class KeyEvent: NSObject {
         CFRunLoopRun()
     }
     
-    func callback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent, refcon: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
-        // if type == CGEventType.keyDown {print(KeyboardShortcut(event).toString())}
+    func flagsChangedCallback(_ event: NSEvent!){
+        if !isFlagsChanged {
+            return
+        }
+        
+        isFlagsChanged = false
+        
+        let keyCode = CGKeyCode(event.keyCode)
+        
+        if let shortcut = oneShotModifiers[keyCode] {
+            if event.modifierFlags.contains(modifierMasks[keyCode]!) {
+                self.keyCode = keyCode
+            }
+            else if keyCode == self.keyCode {
+                shortcut.postEvent()
+            }
+        }
+    }
+    func anotherActionCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent, refcon: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
+        #if DEBUG
+            if type == CGEventType.keyDown {print(KeyboardShortcut(event).toString())}
+        #endif
         
         if let textFeild = selectKeyTextField {
             self.keyCode = nil
@@ -100,16 +133,7 @@ class KeyEvent: NSObject {
         }
         
         if type == CGEventType.flagsChanged {
-            let keyCode = CGKeyCode(event.getIntegerValueField(.keyboardEventKeycode))
-            
-            if let shortcut = oneShotModifiers[keyCode] {
-                if event.flags.rawValue & modifierMasks[keyCode]!.rawValue != 0 {
-                    self.keyCode = keyCode
-                }
-                else if keyCode == self.keyCode {
-                    shortcut.postEvent()
-                }
-            }
+            isFlagsChanged = true
         }
         else {
             self.keyCode = nil
@@ -118,3 +142,14 @@ class KeyEvent: NSObject {
     }
 }
 
+let modifierMasks: [CGKeyCode: NSEventModifierFlags] = [
+    54: NSEventModifierFlags.command,
+    55: NSEventModifierFlags.command,
+    56: NSEventModifierFlags.shift,
+    60: NSEventModifierFlags.shift,
+    59: NSEventModifierFlags.control,
+    62: NSEventModifierFlags.control,
+    58: NSEventModifierFlags.option,
+    61: NSEventModifierFlags.option,
+    63: NSEventModifierFlags.function
+]

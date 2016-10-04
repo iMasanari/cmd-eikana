@@ -795,13 +795,14 @@
                                                                 <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BNd-yo-aqi" customClass="KeyTextField" customModule="_英かな" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="-5" width="125" height="26"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                    <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" title="JIS-EISUU" buttonBordered="NO" completes="NO" numberOfVisibleItems="5" id="TxO-Df-vkf">
+                                                                    <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" title="JIS-EISUU" buttonBordered="NO" completes="NO" numberOfVisibleItems="6" id="TxO-Df-vkf">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         <objectValues>
                                                                             <string>JIS_EISUU</string>
                                                                             <string>JIS_KANA</string>
+                                                                            <string>⇧JIS_KANA</string>
                                                                             <string>⌘SPACE</string>
                                                                             <string>⌃SPACE</string>
                                                                             <string>（削除）</string>
@@ -832,13 +833,14 @@
                                                                 <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Ub-Ud-ZuV" customClass="KeyTextField" customModule="_英かな" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="-5" width="125" height="26"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                    <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" title="JIS-KANA" buttonBordered="NO" completes="NO" numberOfVisibleItems="5" id="HG5-p6-ZD9">
+                                                                    <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" title="JIS-KANA" buttonBordered="NO" completes="NO" numberOfVisibleItems="6" id="HG5-p6-ZD9">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         <objectValues>
                                                                             <string>JIS_EISUU</string>
                                                                             <string>JIS_KANA</string>
+                                                                            <string>⇧JIS_KANA</string>
                                                                             <string>⌘SPACE</string>
                                                                             <string>⌃SPACE</string>
                                                                             <string>（削除）</string>

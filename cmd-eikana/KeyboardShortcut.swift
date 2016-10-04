@@ -57,7 +57,7 @@ class KeyboardShortcut: NSObject {
         var flagString = ""
         let flags = self.flags.rawValue
         
-        if flags & CGEventFlags.maskCommand.rawValue != 0 && modifierMasks[keyCode] != CGEventFlags.maskCommand {
+        if flags & CGEventFlags.maskCommand.rawValue != 0 && keyCode != 54 && keyCode != 55 {
             flagString += "⌘"
         }
         
@@ -85,25 +85,13 @@ class KeyboardShortcut: NSObject {
         let keyDownEvent = CGEvent(keyboardEventSource: nil, virtualKey: keyCode, keyDown: true)!
         let keyUpEvent = CGEvent(keyboardEventSource: nil, virtualKey: keyCode, keyDown: false)!
         
-        keyDownEvent.flags = flags
+        keyDownEvent.flags = CGEventFlags(rawValue: keyDownEvent.flags.rawValue | flags.rawValue)
         keyUpEvent.flags = CGEventFlags()
         
         keyDownEvent.post(tap: loc)
         keyUpEvent.post(tap: loc)
     }
 }
-
-let modifierMasks: [CGKeyCode: CGEventFlags] = [
-    54: CGEventFlags.maskCommand,
-    55: CGEventFlags.maskCommand,
-    56: CGEventFlags.maskShift,
-    60: CGEventFlags.maskShift,
-    59: CGEventFlags.maskControl,
-    62: CGEventFlags.maskControl,
-    58: CGEventFlags.maskAlternate,
-    61: CGEventFlags.maskAlternate,
-    63: CGEventFlags.maskSecondaryFn
-]
 
 let keyCodeDictionary: Dictionary<CGKeyCode, String> = [
     0: "A",
