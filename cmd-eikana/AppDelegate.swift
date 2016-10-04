@@ -11,6 +11,8 @@ import Cocoa
 var statusItem = NSStatusBar.system().statusItem(withLength: CGFloat(NSVariableStatusItemLength))
 var loginItem = NSMenuItem()
 
+var oneShotModifiers: [CGKeyCode: KeyboardShortcut] = [:]
+
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     var windowController : NSWindowController?
@@ -38,6 +40,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             checkUpdate()
         }
         
+        if let oneShotModifiersData = userDefaults.object(forKey: "oneShotModifiers") {
+            oneShotModifiers = [:]
+            
+            (oneShotModifiersData as! [AnyObject]).forEach({ (val) in
+                let input = CGKeyCode(val["input"] as! Int)
+                let output = KeyboardShortcut(dictionary: val["output"] as! [AnyHashable: Any])
+                
+                oneShotModifiers[input] = output
+            })
+            
+        }
+        else {
+            oneShotModifiers = [
+                55: KeyboardShortcut(keyCode: 102),
+                54: KeyboardShortcut(keyCode: 104)
+            ]
+            
+            saveKeyMappings()
+        }
+        
         let menu = NSMenu()
         statusItem.title = "⌘"
         statusItem.highlightMode = true
@@ -55,12 +77,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         menu.addItem(withTitle: "Quit", action: #selector(AppDelegate.quit(_:)), keyEquivalent: "")
         
         _ = KeyEvent()
+        
+//        openPreferences()
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
     
+    func applicationDidResignActive(_ notification: Notification) {
+        selectKeyTextField?.textField.window?.makeFirstResponder(nil)
+        selectKeyTextField = nil
+    }
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
         openPreferences()
         return false
@@ -111,4 +139,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBAction func quit(_ sender: NSButton) {
         NSApplication.shared().terminate(self)
     }
+}
+
+func saveKeyMappings() {
+    UserDefaults.standard.set(oneShotModifiers.map {[
+        "input": Int($0.0),
+        "output": $0.1.toDictionary()
+        ]} , forKey: "oneShotModifiers")
 }

@@ -8,14 +8,8 @@
 
 import Cocoa
 
-let singleModifierKeyUpActions: [Int64: () -> Void] = [
-    55 /* left command */: postKeyboardEvent(102 /* jis-eisuu */),
-    54 /* right command */: postKeyboardEvent(104 /* jis-kana */),
-    // 59 /* left control */: postKeyboardEvent(49 /* space */, flags: CGEventFlags.maskCommand)
-]
-
 class KeyEvent: NSObject {
-    var keyCode: Int64? = nil
+    var keyCode: CGKeyCode? = nil
     
     override init() {
         super.init()
@@ -88,48 +82,39 @@ class KeyEvent: NSObject {
     }
     
     func callback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent, refcon: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
-        if [.flagsChanged].contains(type) {
-            let keyCode = event.getIntegerValueField(.keyboardEventKeycode)
+        // if type == CGEventType.keyDown {print(KeyboardShortcut(event).toString())}
+        
+        if let textFeild = selectKeyTextField {
+            self.keyCode = nil
             
-            if let action = singleModifierKeyUpActions[keyCode] {
+            if type == CGEventType.keyDown {
+                textFeild.textField.stringValue = KeyboardShortcut(event).toString()
+                
+                selectKeyTextField = (
+                    textField: textFeild.textField,
+                    KeyboardShortcut(keyCode: CGKeyCode(event.getIntegerValueField(.keyboardEventKeycode)), flags: event.flags)
+                )
+                
+                return nil
+            }
+        }
+        
+        if type == CGEventType.flagsChanged {
+            let keyCode = CGKeyCode(event.getIntegerValueField(.keyboardEventKeycode))
+            
+            if let shortcut = oneShotModifiers[keyCode] {
                 if event.flags.rawValue & modifierMasks[keyCode]!.rawValue != 0 {
                     self.keyCode = keyCode
                 }
                 else if keyCode == self.keyCode {
-                    action()
+                    shortcut.postEvent()
                 }
             }
         }
         else {
             self.keyCode = nil
         }
-        
         return Unmanaged.passRetained(event)
     }
 }
 
-let modifierMasks: [Int64: CGEventFlags] = [
-    54: CGEventFlags.maskCommand,
-    55: CGEventFlags.maskCommand,
-    56: CGEventFlags.maskShift,
-    60: CGEventFlags.maskShift,
-    59: CGEventFlags.maskControl,
-    62: CGEventFlags.maskControl,
-    58: CGEventFlags.maskAlternate,
-    61: CGEventFlags.maskAlternate,
-    63: CGEventFlags.maskSecondaryFn
-]
-
-func postKeyboardEvent(_ virtualKey: CGKeyCode, flags: CGEventFlags = CGEventFlags()) -> () -> Void {
-    let loc = CGEventTapLocation.cghidEventTap
-    let keyDownEvent = CGEvent(keyboardEventSource: nil, virtualKey: virtualKey, keyDown: true)!
-    let keyUpEvent = CGEvent(keyboardEventSource: nil, virtualKey: virtualKey, keyDown: false)!
-    
-    keyDownEvent.flags = flags
-    keyUpEvent.flags = CGEventFlags()
-    
-    return { () -> Void in
-        keyDownEvent.post(tap: loc)
-        keyUpEvent.post(tap: loc)
-    }
-}
