@@ -800,11 +800,11 @@
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         <objectValues>
-                                                                            <string>JIS_EISUU</string>
-                                                                            <string>JIS_KANA</string>
-                                                                            <string>⇧JIS_KANA</string>
-                                                                            <string>⌘SPACE</string>
-                                                                            <string>⌃SPACE</string>
+                                                                            <string>英数</string>
+                                                                            <string>かな</string>
+                                                                            <string>⇧かな</string>
+                                                                            <string>⌘Space</string>
+                                                                            <string>⌃Space</string>
                                                                             <string>（削除）</string>
                                                                         </objectValues>
                                                                     </comboBoxCell>
@@ -838,11 +838,11 @@
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         <objectValues>
-                                                                            <string>JIS_EISUU</string>
-                                                                            <string>JIS_KANA</string>
-                                                                            <string>⇧JIS_KANA</string>
-                                                                            <string>⌘SPACE</string>
-                                                                            <string>⌃SPACE</string>
+                                                                            <string>英数</string>
+                                                                            <string>かな</string>
+                                                                            <string>⇧かな</string>
+                                                                            <string>⌘Space</string>
+                                                                            <string>⌃Space</string>
                                                                             <string>（削除）</string>
                                                                         </objectValues>
                                                                     </comboBoxCell>

@@ -36,26 +36,23 @@ class KeyTextField: NSComboBox {
         
         switch self.stringValue {
             case "（削除）":
-                self.stringValue = ""
-                
                 if selectKeyTextField != nil {
                     selectKeyTextField!.key = nil
-                    // selectKeyTextField!.key = KeyboardShortcut(keyCode: 57)
                 }
                 break
-            case "JIS_EISUU":
+            case "英数":
                 selectKeyTextField = (textField: self, KeyboardShortcut(keyCode: 102))
                 break
-            case "JIS_KANA":
+            case "かな":
                 selectKeyTextField = (textField: self, KeyboardShortcut(keyCode: 104))
                 break
-            case "⇧JIS_KANA":
+            case "⇧かな":
                 selectKeyTextField = (textField: self, KeyboardShortcut(keyCode: 104, flags: CGEventFlags.maskShift))
                 break
-            case "⌘SPACE":
+            case "⌘Space":
                 selectKeyTextField = (textField: self, KeyboardShortcut(keyCode: 49, flags: CGEventFlags.maskCommand))
                 break
-            case "⌃SPACE":
+            case "⌃Space":
                 selectKeyTextField = (textField: self, KeyboardShortcut(keyCode: 49, flags: CGEventFlags.maskControl))
                 break
             default:
@@ -69,6 +66,7 @@ class KeyTextField: NSComboBox {
             oneShotModifiers[key] = shortcut
         }
         else {
+            self.stringValue = ""
             oneShotModifiers.removeValue(forKey: key)
         }
         
