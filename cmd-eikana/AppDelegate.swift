@@ -11,17 +11,16 @@ import Cocoa
 var statusItem = NSStatusBar.system().statusItem(withLength: CGFloat(NSVariableStatusItemLength))
 var loginItem = NSMenuItem()
 
-var oneShotModifiers: [CGKeyCode: KeyboardShortcut] = [:]
-
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
+
     var windowController : NSWindowController?
-    
+    var preferenceWindowController: PreferenceWindowController!
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
         
-//        resetUserDefault() // デバッグ用
+//         resetUserDefault() // デバッグ用
         
         let userDefaults = UserDefaults.standard
         
@@ -40,25 +39,43 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             checkUpdate()
         }
         
-        if let oneShotModifiersData = userDefaults.object(forKey: "oneShotModifiers") {
-            oneShotModifiers = [:]
+        if let keyMappingListData = userDefaults.object(forKey: "mappings") as? [[AnyHashable: Any]] {
+            for val in keyMappingListData {
+                if let mapping = KeyMapping(dictionary: val) {
+                    keyMappingList.append(mapping)
+                }
+            }
             
-            (oneShotModifiersData as! [AnyObject]).forEach({ (val) in
-                let input = CGKeyCode(val["input"] as! Int)
-                let output = KeyboardShortcut(dictionary: val["output"] as! [AnyHashable: Any])
-                
-                oneShotModifiers[input] = output
-            })
-            
+            keyMappingListToShortcutList()
         }
         else {
-            oneShotModifiers = [
-                55: KeyboardShortcut(keyCode: 102),
-                54: KeyboardShortcut(keyCode: 104)
-            ]
+            if let oneShotModifiersData = userDefaults.object(forKey: "oneShotModifiers") as? [AnyObject] {
+                // v2.0.xからの引き継ぎ
+                for val in oneShotModifiersData {
+                    if let inputKeyCodeInt = val["input"] as? Int,
+                        let outputDic = val["output"] as? [AnyHashable: Any],
+                        let output = KeyboardShortcut(dictionary: outputDic)
+                    {
+                        keyMappingList.append(KeyMapping(input: KeyboardShortcut(keyCode: CGKeyCode(inputKeyCodeInt)),
+                                                         output: output))
+                    }
+                }
+                
+                userDefaults.removeObject(forKey: "oneShotModifiers")
+            }
+            else {
+                keyMappingList = [
+                    KeyMapping(input: KeyboardShortcut(keyCode: 55), output: KeyboardShortcut(keyCode: 102)),
+                    KeyMapping(input: KeyboardShortcut(keyCode: 54), output: KeyboardShortcut(keyCode: 104))
+                ]
+            }
             
             saveKeyMappings()
+            keyMappingListToShortcutList()
         }
+        
+        preferenceWindowController = PreferenceWindowController.getInstance()
+        // preferenceWindowController.showAndActivate(self)
         
         let menu = NSMenu()
         statusItem.title = "⌘"
@@ -72,13 +89,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
         
-        menu.addItem(withTitle: "About ⌘英かな " + version, action: #selector(AppDelegate.open(_:)), keyEquivalent: "")
+        menu.addItem(withTitle: "About ⌘英かな \(version) (webページ)", action: #selector(AppDelegate.open(_:)), keyEquivalent: "")
         menu.addItem(withTitle: "Preferences...", action: #selector(AppDelegate.openPreferencesSerector(_:)), keyEquivalent: "")
         menu.addItem(withTitle: "Quit", action: #selector(AppDelegate.quit(_:)), keyEquivalent: "")
         
         _ = KeyEvent()
-        
-//        openPreferences()
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -86,23 +101,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func applicationDidResignActive(_ notification: Notification) {
-        selectKeyTextField?.textField.window?.makeFirstResponder(nil)
-        selectKeyTextField = nil
+        activeKeyTextField?.blur()
     }
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
-        openPreferences()
+        preferenceWindowController.showAndActivate(self)
         return false
-    }
-    
-    func openPreferences() {
-        let storyboard = NSStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateController(withIdentifier: "MainWindow") as? ViewController
-        let window = NSWindow(contentViewController: vc!)
-        
-        window.makeKeyAndOrderFront(self)
-        
-        self.windowController = NSWindowController(window: window)
-        self.windowController!.showWindow(self)
     }
     
     // 保存されたUserDefaultを全削除する。
@@ -121,8 +124,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     @IBAction func openPreferencesSerector(_ sender: NSButton) {
-        openPreferences()
-        NSApp.activate(ignoringOtherApps: true)
+        preferenceWindowController.showAndActivate(self)
     }
     
     @IBAction func launch(_ sender: NSButton) {
@@ -141,9 +143,3 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 }
 
-func saveKeyMappings() {
-    UserDefaults.standard.set(oneShotModifiers.map {[
-        "input": Int($0.0),
-        "output": $0.1.toDictionary()
-        ]} , forKey: "oneShotModifiers")
-}

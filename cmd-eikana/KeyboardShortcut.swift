@@ -18,6 +18,12 @@ class KeyboardShortcut: NSObject {
         
         super.init()
     }
+    override init() {
+        self.keyCode = 0
+        self.flags = CGEventFlags(rawValue: 0)
+        
+        super.init()
+    }
     
     init(keyCode: CGKeyCode, flags: CGEventFlags = CGEventFlags()) {
         self.keyCode = keyCode
@@ -26,14 +32,16 @@ class KeyboardShortcut: NSObject {
         super.init()
     }
     init?(dictionary: [AnyHashable: Any]) {
-        if let keyCodeInt = dictionary["keyCode"] as? Int, let eventFlagsInt = dictionary["flags"] as? Int {
+        if let keyCodeInt = dictionary["keyCode"] as? Int,
+            let eventFlagsInt = dictionary["flags"] as? Int {
+            
             self.flags = CGEventFlags(rawValue: UInt64(eventFlagsInt))
             self.keyCode = CGKeyCode(keyCodeInt)
             
             super.init()
         } else {
             self.keyCode = 0
-            self.flags = CGEventFlags(rawValue: UInt64(0))
+            self.flags = CGEventFlags(rawValue: 0)
             
             super.init()
             return nil
@@ -55,42 +63,77 @@ class KeyboardShortcut: NSObject {
         }
         
         var flagString = ""
-        let flags = self.flags.rawValue
         
-        if flags & CGEventFlags.maskCommand.rawValue != 0 && keyCode != 54 && keyCode != 55 {
+        if isSecondaryFnDown() {
+            flagString += "(fn)"
+        }
+        
+        if isCommandDown() {
             flagString += "⌘"
         }
         
-        if flags & CGEventFlags.maskShift.rawValue != 0 && keyCode != 56 && keyCode != 60 {
+        if isShiftDown() {
             flagString += "⇧"
         }
         
-        if flags & CGEventFlags.maskControl.rawValue != 0 && keyCode != 59 && keyCode != 62 {
+        if isControlDown() {
             flagString += "⌃"
         }
         
-        if flags & CGEventFlags.maskAlternate.rawValue != 0 && keyCode != 58 && keyCode != 61 {
+        if isAlternateDown() {
             flagString += "⌥"
-        }
-        
-        if flags & CGEventFlags.maskSecondaryFn.rawValue != 0 && keyCode != 63 {
-            flagString += "fn"
         }
         // capslock ⇪
         
         return flagString + key!
     }
     
-    func postEvent() -> Void {
+    func isCommandDown() -> Bool {
+        return self.flags.rawValue & CGEventFlags.maskCommand.rawValue != 0 && keyCode != 54 && keyCode != 55
+    }
+    
+    func isShiftDown() -> Bool {
+        return self.flags.rawValue & CGEventFlags.maskShift.rawValue != 0 && keyCode != 56 && keyCode != 60
+    }
+    
+    func isControlDown() -> Bool {
+        return self.flags.rawValue & CGEventFlags.maskControl.rawValue != 0 && keyCode != 59 && keyCode != 62
+    }
+    
+    func isAlternateDown() -> Bool {
+        return self.flags.rawValue & CGEventFlags.maskAlternate.rawValue != 0 && keyCode != 58 && keyCode != 61
+    }
+    
+    func isSecondaryFnDown() -> Bool {
+        return self.flags.rawValue & CGEventFlags.maskSecondaryFn.rawValue != 0 && keyCode != 63
+    }
+    
+    func postEvent(_ event: CGEvent? = nil) -> Void {
+        let eventSource = CGEventSource(event: event)
         let loc = CGEventTapLocation.cghidEventTap
-        let keyDownEvent = CGEvent(keyboardEventSource: nil, virtualKey: keyCode, keyDown: true)!
-        let keyUpEvent = CGEvent(keyboardEventSource: nil, virtualKey: keyCode, keyDown: false)!
         
-        keyDownEvent.flags = CGEventFlags(rawValue: keyDownEvent.flags.rawValue | flags.rawValue)
+        let keyDownEvent = CGEvent(keyboardEventSource: eventSource, virtualKey: keyCode, keyDown: true)!
+        let keyUpEvent = CGEvent(keyboardEventSource: eventSource, virtualKey: keyCode, keyDown: false)!
+        
+        keyDownEvent.flags = flags
         keyUpEvent.flags = CGEventFlags()
         
         keyDownEvent.post(tap: loc)
         keyUpEvent.post(tap: loc)
+    }
+    
+    func isCover(_ shortcut: KeyboardShortcut) -> Bool {
+        if shortcut.keyCode != self.keyCode ||
+            shortcut.isCommandDown() && !self.isCommandDown() ||
+            shortcut.isShiftDown() && !self.isShiftDown() ||
+            shortcut.isControlDown() && !self.isControlDown() ||
+            shortcut.isAlternateDown() && !self.isAlternateDown() ||
+            shortcut.isSecondaryFnDown() && !self.isSecondaryFnDown()
+        {
+            return false
+        }
+        
+        return true
     }
 }
 
@@ -147,42 +190,42 @@ let keyCodeDictionary: Dictionary<CGKeyCode, String> = [
     49: "Space",
     50: "`",
     51: "⌫",
-    52: "ENTER_POWERBOOK",
+    52: "Enter_POWERBOOK",
     53: "⎋",
-    54: "COMMAND_R",
-    55: "COMMAND_L",
-    56: "SHIFT_L",
-    57: "CAPSLOCK",
-    58: "OPTION_L",
-    59: "CONTROL_L",
-    60: "SHIFT_R",
-    61: "OPTION_R",
-    62: "CONTROL_R",
+    54: "Command_R",
+    55: "Command_L",
+    56: "Shift_L",
+    57: "Capslock",
+    58: "Option_L",
+    59: "Control_L",
+    60: "Shift_R",
+    61: "Option_R",
+    62: "Control_R",
     63: "FN",
     64: "F17",
-    65: "KEYPAD_DOT",
-    67: "KEYPAD_MULTIPLY",
-    69: "KEYPAD_PLUS",
-    71: "KEYPAD_CLEAR",
-    75: "KEYPAD_SLASH",
+    65: "Keypad_Dot",
+    67: "Keypad_Multiply",
+    69: "Keypad_Plus",
+    71: "Keypad_Clear",
+    75: "Keypad_Slash",
     76: "⌤",
-    78: "KEYPAD_MINUS",
+    78: "Keypad_Minus",
     79: "F18",
     80: "F19",
-    81: "KEYPAD_EQUAL",
-    82: "KEYPAD_0",
-    83: "KEYPAD_1",
-    84: "KEYPAD_2",
-    85: "KEYPAD_3",
-    86: "KEYPAD_4",
-    87: "KEYPAD_5",
-    88: "KEYPAD_6",
-    89: "KEYPAD_7",
-    91: "KEYPAD_8",
-    92: "KEYPAD_9",
+    81: "Keypad_Equal",
+    82: "Keypad_0",
+    83: "Keypad_1",
+    84: "Keypad_2",
+    85: "Keypad_3",
+    86: "Keypad_4",
+    87: "Keypad_5",
+    88: "Keypad_6",
+    89: "Keypad_7",
+    91: "Keypad_8",
+    92: "Keypad_9",
     93: "¥",
     94: "_",
-    95: "KEYPAD_COMMA",
+    95: "Keypad_Comma",
     96: "F5",
     97: "F6",
     98: "F7",
@@ -200,11 +243,11 @@ let keyCodeDictionary: Dictionary<CGKeyCode, String> = [
     111: "F12",
     113: "F15",
     114: "HELP",
-    115: "↖",
+    115: "Home", // "↖",
     116: "PgUp",
     117: "⌦",
     118: "F4",
-    119: "↘",
+    119: "End", // "↘",
     120: "F2",
     121: "PgDn",
     122: "F1",
