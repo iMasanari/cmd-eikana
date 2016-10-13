@@ -1,10 +1,11 @@
 # ⌘英かな
 
 左右のコマンドキーを単体で押した時に英数/かなを切り替えるようにするアプリです。  
-macOS Sierraでも動作します。
+設定をいじることでmacOS Sierraでも動くキーリマップアプリとしても利用できます。  
 
 ## ダウンロード
-- [ver.2.0.1](https://github.com/iMasanari/cmd-eikana/releases/download/v2.0.1/eikana-2.0.1.app.zip)
+https://ei-kana.appspot.com/  
+ここからダウンロードしてください
 
 ## 使い方（初回起動時）
 
