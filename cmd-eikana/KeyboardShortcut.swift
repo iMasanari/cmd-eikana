@@ -108,12 +108,11 @@ class KeyboardShortcut: NSObject {
         return self.flags.rawValue & CGEventFlags.maskSecondaryFn.rawValue != 0 && keyCode != 63
     }
     
-    func postEvent(_ event: CGEvent? = nil) -> Void {
-        let eventSource = CGEventSource(event: event)
+    func postEvent() -> Void {
         let loc = CGEventTapLocation.cghidEventTap
         
-        let keyDownEvent = CGEvent(keyboardEventSource: eventSource, virtualKey: keyCode, keyDown: true)!
-        let keyUpEvent = CGEvent(keyboardEventSource: eventSource, virtualKey: keyCode, keyDown: false)!
+        let keyDownEvent = CGEvent(keyboardEventSource: nil, virtualKey: keyCode, keyDown: true)!
+        let keyUpEvent = CGEvent(keyboardEventSource: nil, virtualKey: keyCode, keyDown: false)!
         
         keyDownEvent.flags = flags
         keyUpEvent.flags = CGEventFlags()

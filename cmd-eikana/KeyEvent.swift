@@ -148,8 +148,6 @@ class KeyEvent: NSObject {
             
             keyTextField.shortcut = shortcut
             keyTextField.stringValue = shortcut.toString()
-            
-            return nil
         }
         
         return Unmanaged.passRetained(event)
@@ -158,12 +156,10 @@ class KeyEvent: NSObject {
     func modifierKeyUp(_ event: CGEvent) -> Unmanaged<CGEvent>? {
         if activeKeyTextField != nil {
             self.keyCode = nil
-            
-            return nil
         }
-        if self.keyCode == CGKeyCode(event.getIntegerValueField(.keyboardEventKeycode)) {
+        else if self.keyCode == CGKeyCode(event.getIntegerValueField(.keyboardEventKeycode)) {
             if let convertedEvent = getConvertedEvent(event) {
-                KeyboardShortcut(convertedEvent).postEvent(event)
+                KeyboardShortcut(convertedEvent).postEvent()
             }
         }
         
