@@ -70,8 +70,8 @@ class ShortcutsController: NSViewController, NSTableViewDataSource, NSTableViewD
                 textField.saveAddress = (row: row, id: id)
                 textField.isAllowModifierOnly = id == "input"
             }
-            if id == "remove" {
-                let button = cell.subviews[0] as! RemoveButton
+            if id == "mapping-menu" {
+                let button = cell.subviews[0] as! MappingMenu
                 
                 button.row = row
                 
@@ -83,19 +83,33 @@ class ShortcutsController: NSViewController, NSTableViewDataSource, NSTableViewD
         }
         return nil
     }
-    func remove(_ sender: RemoveButton) {
+    func remove(_ sender: MappingMenu) {
         activeKeyTextField?.blur()
         
-        keyMappingList.remove(at: sender.row!)
+        switch sender.selectedItem!.title {
+        case "この項目を削除":
+            sender.remove()
+            break
+        case "最上部に移動":
+            sender.move(0)
+            break
+        case "1つ上に移動":
+            sender.move(sender.row! - 1)
+            break
+        case "1つ下に移動":
+            sender.move(sender.row! + 1)
+            break
+        case "最下部に移動":
+            sender.move(keyMappingList.count - 1)
+            break
+        default:
+            break
+        }
+        
         tableView.reloadData()
         saveKeyMappings()
     }
     override func mouseDown(with event: NSEvent) {
         activeKeyTextField?.blur()
     }
-}
-
-/// Target-Action helper.
-class RemoveButton: NSButton {
-    var row: Int?
 }

@@ -741,7 +741,7 @@
                                                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="auW-1h-yOd">
                                                                     <rect key="frame" x="-1" y="0.0" width="22" height="18"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                    <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="only" enabled="NO" state="on" inset="2" id="t7J-gl-EMm">
+                                                                    <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="only" state="on" inset="2" id="t7J-gl-EMm">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
                                                                     </buttonCell>
@@ -820,7 +820,7 @@
                                                         </tableCellView>
                                                     </prototypeCellViews>
                                                 </tableColumn>
-                                                <tableColumn identifier="remove" width="76" minWidth="10" maxWidth="3.4028234663852886e+38" id="6aP-Xx-X5J">
+                                                <tableColumn identifier="mapping-menu" width="76" minWidth="10" maxWidth="3.4028234663852886e+38" id="6aP-Xx-X5J">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -837,14 +837,32 @@
                                                             <rect key="frame" x="330" y="1" width="76" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uk1-U8-drE" customClass="RemoveButton" customModule="_英かな" customModuleProvider="target">
-                                                                    <rect key="frame" x="4" y="-6" width="68" height="28"/>
+                                                                <popUpButton identifier="hage" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dzf-C4-fIi" customClass="MappingMenu" customModule="_英かな" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="-4" width="75" height="25"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                    <buttonCell key="cell" type="push" title="Remove" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="klg-PA-Qla">
-                                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                        <font key="font" metaFont="smallSystem"/>
-                                                                    </buttonCell>
-                                                                </button>
+                                                                    <popUpButtonCell key="cell" type="check" title="menu" bezelStyle="regularSquare" imagePosition="left" alignment="center" lineBreakMode="truncatingTail" state="on" identifier="test" inset="2" pullsDown="YES" arrowPosition="noArrow" id="H2F-I4-Cda">
+                                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                        <font key="font" metaFont="menu"/>
+                                                                        <menu key="menu" id="BOb-Li-1q3">
+                                                                            <items>
+                                                                                <menuItem title="menu" state="on" hidden="YES" id="hM9-HT-fqx"/>
+                                                                                <menuItem title="最上部に移動" id="SPl-n7-KTj">
+                                                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                </menuItem>
+                                                                                <menuItem title="1つ上に移動" id="5K6-xN-Jic"/>
+                                                                                <menuItem title="1つ下に移動" id="fY1-dw-1o1"/>
+                                                                                <menuItem title="最下部に移動" id="EUh-qz-H2g">
+                                                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                </menuItem>
+                                                                                <menuItem isSeparatorItem="YES" id="VSb-Dd-g0X"/>
+                                                                                <menuItem title="この項目を削除" id="502-f2-l6k">
+                                                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                </menuItem>
+                                                                            </items>
+                                                                            <accessibility identifier="hoge"/>
+                                                                        </menu>
+                                                                    </popUpButtonCell>
+                                                                </popUpButton>
                                                             </subviews>
                                                         </tableCellView>
                                                     </prototypeCellViews>

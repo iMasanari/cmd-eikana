@@ -13,6 +13,7 @@
 		620E0B491D9F2F8F0067F88B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 620E0B481D9F2F8F0067F88B /* Assets.xcassets */; };
 		620E0B4C1D9F2F8F0067F88B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 620E0B4A1D9F2F8F0067F88B /* MainMenu.xib */; };
 		620E0B511D9F31E30067F88B /* cmd-eikana-helper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 620E0B401D9F2F8F0067F88B /* cmd-eikana-helper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		620E47771DB3C6E9004A2664 /* MappingMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620E47761DB3C6E9004A2664 /* MappingMenu.swift */; };
 		623E2E071DA60DA800AF163C /* PreferenceWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623E2E061DA60DA800AF163C /* PreferenceWindowController.swift */; };
 		6242D4BC1DA2455D00CA80DD /* KeyboardShortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6242D4BB1DA2455D00CA80DD /* KeyboardShortcut.swift */; };
 		6242D4BE1DA395AC00CA80DD /* KeyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6242D4BD1DA395AC00CA80DD /* KeyTextField.swift */; };
@@ -59,6 +60,7 @@
 		620E0B481D9F2F8F0067F88B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		620E0B4B1D9F2F8F0067F88B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		620E0B4D1D9F2F8F0067F88B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		620E47761DB3C6E9004A2664 /* MappingMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MappingMenu.swift; sourceTree = "<group>"; };
 		623E2E061DA60DA800AF163C /* PreferenceWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceWindowController.swift; sourceTree = "<group>"; };
 		6242D4BB1DA2455D00CA80DD /* KeyboardShortcut.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardShortcut.swift; sourceTree = "<group>"; };
 		6242D4BD1DA395AC00CA80DD /* KeyTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyTextField.swift; sourceTree = "<group>"; };
@@ -156,8 +158,9 @@
 				6294281E1D387503001BD4E9 /* Assets.xcassets */,
 				629428201D387503001BD4E9 /* Main.storyboard */,
 				62BEA2A31DA739B6004409AE /* ShortcutsController.swift */,
-				628908ED1DADB0B6008EF46A /* KeyMapping.swift */,
+				620E47761DB3C6E9004A2664 /* MappingMenu.swift */,
 				6242D4BD1DA395AC00CA80DD /* KeyTextField.swift */,
+				628908ED1DADB0B6008EF46A /* KeyMapping.swift */,
 				629428231D387503001BD4E9 /* Info.plist */,
 			);
 			name = "⌘英かな";
@@ -325,6 +328,7 @@
 				620E0AD71D9E97BA0067F88B /* checkUpdate.swift in Sources */,
 				62BEA2A41DA739B6004409AE /* ShortcutsController.swift in Sources */,
 				627265F61D3CC84000703F85 /* KeyEvent.swift in Sources */,
+				620E47771DB3C6E9004A2664 /* MappingMenu.swift in Sources */,
 				6294281D1D387503001BD4E9 /* ViewController.swift in Sources */,
 				62D162E71D3B350B009C95B0 /* toggleLaunchAtStartup.swift in Sources */,
 				623E2E071DA60DA800AF163C /* PreferenceWindowController.swift in Sources */,
