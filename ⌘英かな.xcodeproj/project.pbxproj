@@ -26,6 +26,8 @@
 		6294282D1D387503001BD4E9 /* ⌘英かなTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6294282C1D387503001BD4E9 /* ⌘英かなTests.swift */; };
 		62BEA2A41DA739B6004409AE /* ShortcutsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BEA2A31DA739B6004409AE /* ShortcutsController.swift */; };
 		62D162E71D3B350B009C95B0 /* toggleLaunchAtStartup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D162E61D3B350B009C95B0 /* toggleLaunchAtStartup.swift */; };
+		62FE51611DC70C5B0037B8D1 /* ExclusionAppsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FE51601DC70C5B0037B8D1 /* ExclusionAppsController.swift */; };
+		62FE51631DC75ECE0037B8D1 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FE51621DC75ECE0037B8D1 /* AppData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +79,8 @@
 		6294282E1D387503001BD4E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		62BEA2A31DA739B6004409AE /* ShortcutsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortcutsController.swift; sourceTree = "<group>"; };
 		62D162E61D3B350B009C95B0 /* toggleLaunchAtStartup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = toggleLaunchAtStartup.swift; sourceTree = "<group>"; };
+		62FE51601DC70C5B0037B8D1 /* ExclusionAppsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExclusionAppsController.swift; sourceTree = "<group>"; };
+		62FE51621DC75ECE0037B8D1 /* AppData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,13 +158,15 @@
 				627265F51D3CC84000703F85 /* KeyEvent.swift */,
 				6242D4BB1DA2455D00CA80DD /* KeyboardShortcut.swift */,
 				62D162E61D3B350B009C95B0 /* toggleLaunchAtStartup.swift */,
-				6294281C1D387503001BD4E9 /* ViewController.swift */,
+				62FE51621DC75ECE0037B8D1 /* AppData.swift */,
+				628908ED1DADB0B6008EF46A /* KeyMapping.swift */,
 				6294281E1D387503001BD4E9 /* Assets.xcassets */,
 				629428201D387503001BD4E9 /* Main.storyboard */,
 				62BEA2A31DA739B6004409AE /* ShortcutsController.swift */,
+				62FE51601DC70C5B0037B8D1 /* ExclusionAppsController.swift */,
+				6294281C1D387503001BD4E9 /* ViewController.swift */,
 				620E47761DB3C6E9004A2664 /* MappingMenu.swift */,
 				6242D4BD1DA395AC00CA80DD /* KeyTextField.swift */,
-				628908ED1DADB0B6008EF46A /* KeyMapping.swift */,
 				629428231D387503001BD4E9 /* Info.plist */,
 			);
 			name = "⌘英かな";
@@ -325,12 +331,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62FE51631DC75ECE0037B8D1 /* AppData.swift in Sources */,
 				620E0AD71D9E97BA0067F88B /* checkUpdate.swift in Sources */,
 				62BEA2A41DA739B6004409AE /* ShortcutsController.swift in Sources */,
 				627265F61D3CC84000703F85 /* KeyEvent.swift in Sources */,
 				620E47771DB3C6E9004A2664 /* MappingMenu.swift in Sources */,
 				6294281D1D387503001BD4E9 /* ViewController.swift in Sources */,
 				62D162E71D3B350B009C95B0 /* toggleLaunchAtStartup.swift in Sources */,
+				62FE51611DC70C5B0037B8D1 /* ExclusionAppsController.swift in Sources */,
 				623E2E071DA60DA800AF163C /* PreferenceWindowController.swift in Sources */,
 				6242D4BE1DA395AC00CA80DD /* KeyTextField.swift in Sources */,
 				6242D4BC1DA2455D00CA80DD /* KeyboardShortcut.swift in Sources */,

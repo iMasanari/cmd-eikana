@@ -8,11 +8,23 @@
 
 import Cocoa
 
+var activeAppsList: [AppData] = []
+var exclusionAppsList: [AppData] = []
+
+var exclusionAppsDict: [String: String] = [:]
+
 class KeyEvent: NSObject {
     var keyCode: CGKeyCode? = nil
+    var isExclusionApp = false
+    let bundleId = Bundle.main.infoDictionary?["CFBundleIdentifier"] as! String
     
     override init() {
         super.init()
+        
+        NSWorkspace.shared().notificationCenter.addObserver(self,
+                                                            selector: #selector(KeyEvent.setActiveApp(_:)),
+                                                            name: NSNotification.Name.NSWorkspaceDidActivateApplication,
+                                                            object:nil)
         
         let checkOptionPrompt = kAXTrustedCheckOptionPrompt.takeRetainedValue() as NSString
         let options: CFDictionary = [checkOptionPrompt: true] as NSDictionary
@@ -24,7 +36,8 @@ class KeyEvent: NSObject {
                                  selector: #selector(KeyEvent.watchAXIsProcess(_:)),
                                  userInfo: nil,
                                  repeats: true)
-        } else {
+        }
+        else {
             self.watch()
         }
     }
@@ -34,6 +47,23 @@ class KeyEvent: NSObject {
             timer.invalidate()
             
             self.watch()
+        }
+    }
+    
+    func setActiveApp(_ notification: NSNotification) {
+        let app = notification.userInfo!["NSWorkspaceApplicationKey"] as! NSRunningApplication
+        
+        if let name = app.localizedName, let id = app.bundleIdentifier, id != bundleId {
+            isExclusionApp = exclusionAppsDict[id] != nil
+            
+            if (!isExclusionApp) {
+                activeAppsList = activeAppsList.filter {$0.id != id}
+                activeAppsList.insert(AppData(name: name, id: id), at: 0)
+                
+                if activeAppsList.count > 10 {
+                    activeAppsList.removeLast()
+                }
+            }
         }
     }
     
@@ -85,6 +115,10 @@ class KeyEvent: NSObject {
     }
     
     func eventCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent) -> Unmanaged<CGEvent>? {
+        if isExclusionApp {
+            return Unmanaged.passRetained(event)
+        }
+        
         switch type {
             case CGEventType.flagsChanged:
                 let keyCode = CGKeyCode(event.getIntegerValueField(.keyboardEventKeycode))
@@ -111,7 +145,7 @@ class KeyEvent: NSObject {
     func keyDown(_ event: CGEvent) -> Unmanaged<CGEvent>? {
         #if DEBUG
             // print("keyCode: \(KeyboardShortcut(event).keyCode)")
-            // print(KeyboardShortcut(event).toString())
+             print(KeyboardShortcut(event).toString())
         #endif
         
         self.keyCode = nil
@@ -141,6 +175,10 @@ class KeyEvent: NSObject {
     }
     
     func modifierKeyDown(_ event: CGEvent) -> Unmanaged<CGEvent>? {
+        #if DEBUG
+            print(KeyboardShortcut(event).toString())
+        #endif
+
         self.keyCode = CGKeyCode(event.getIntegerValueField(.keyboardEventKeycode))
         
         if let keyTextField = activeKeyTextField, keyTextField.isAllowModifierOnly {

@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class ViewController: NSViewController {
+class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
     let userDefaults = UserDefaults.standard
     
     @IBOutlet weak var showIcon: NSButton!
@@ -50,10 +50,6 @@ class ViewController: NSViewController {
     }
     @IBAction func clickCheckUpdateAtlaunch(_ sender: AnyObject) {
         userDefaults.set(checkUpdateAtlaunch.state, forKey: "checkUpdateAtlaunch")
-    }
-    
-    @IBAction func quit(_ sender: AnyObject) {
-        NSApplication.shared().terminate(self)
     }
     
     @IBAction func checkUpdateButton(_ sender: AnyObject) {

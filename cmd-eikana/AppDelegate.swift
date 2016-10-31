@@ -22,13 +22,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
 //         resetUserDefault() // デバッグ用
         
+        ////////////////////////////
+        // 保存データの読み込み
+        ////////////////////////////
+        
         let userDefaults = UserDefaults.standard
         
+        // 「ログイン後にこのアプリを起動」
         if userDefaults.object(forKey: "lunchAtStartup") == nil {
             setLaunchAtStartup(true)
             userDefaults.set(1, forKey: "lunchAtStartup")
         }
         
+        // 「起動時にアップデートを確認」
         let checkUpdateState = userDefaults.object(forKey: "checkUpdateAtlaunch")
         
         if checkUpdateState == nil {
@@ -39,6 +45,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             checkUpdate()
         }
         
+        // 除外アプリ設定
+        if let exclusionAppsListData = userDefaults.object(forKey: "exclusionApps") as? [[AnyHashable: Any]] {
+            for val in exclusionAppsListData {
+                if let exclusionApps = AppData(dictionary: val) {
+                    exclusionAppsList.append(exclusionApps)
+                }
+            }
+            
+            for val in exclusionAppsList {
+                exclusionAppsDict[val.id] = val.name
+            }
+        }
+        
+        // ショートカット設定
         if let keyMappingListData = userDefaults.object(forKey: "mappings") as? [[AnyHashable: Any]] {
             for val in keyMappingListData {
                 if let mapping = KeyMapping(dictionary: val) {
@@ -64,6 +84,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 userDefaults.removeObject(forKey: "oneShotModifiers")
             }
             else {
+                // 初期設定（左右のコマンドキー単体で英数/かな）
                 keyMappingList = [
                     KeyMapping(input: KeyboardShortcut(keyCode: 55), output: KeyboardShortcut(keyCode: 102)),
                     KeyMapping(input: KeyboardShortcut(keyCode: 54), output: KeyboardShortcut(keyCode: 104))
@@ -73,6 +94,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             saveKeyMappings()
             keyMappingListToShortcutList()
         }
+        
+        ////////////////////////////
+        // UIの初期化
+        ////////////////////////////
         
         preferenceWindowController = PreferenceWindowController.getInstance()
         // preferenceWindowController.showAndActivate(self)
@@ -89,7 +114,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
         
-        menu.addItem(withTitle: "About ⌘英かな \(version) (webページ)", action: #selector(AppDelegate.open(_:)), keyEquivalent: "")
+        menu.addItem(withTitle: "About ⌘英かな \(version)", action: #selector(AppDelegate.open(_:)), keyEquivalent: "")
         menu.addItem(withTitle: "Preferences...", action: #selector(AppDelegate.openPreferencesSerector(_:)), keyEquivalent: "")
         menu.addItem(withTitle: "Quit", action: #selector(AppDelegate.quit(_:)), keyEquivalent: "")
         

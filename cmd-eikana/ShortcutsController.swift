@@ -34,24 +34,22 @@ func keyMappingListToShortcutList() {
 
 class ShortcutsController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
     @IBOutlet weak var tableView: NSTableView!
-    @IBAction func addRow(_ sender: AnyObject) {
-        keyMappingList.append(KeyMapping())
-        tableView.reloadData()
-        saveKeyMappings()
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-//        tableView.delegate = self
-//        tableView.dataSource = self
-    }
-    func applicationDidResignActive(_ notification: Notification) {
-        tableView.reloadData()
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(ShortcutsController.tableRreload),
+                                               name: NSNotification.Name.NSApplicationDidBecomeActive,
+                                               object: nil)
     }
     
-    func numberOfRows(in aTableView: NSTableView) -> Int {
+    override func mouseDown(with event: NSEvent) {
+        activeKeyTextField?.blur()
+    }
+    
+    func numberOfRows(in tableView: NSTableView) -> Int {
         return keyMappingList.count
     }
     
@@ -106,10 +104,20 @@ class ShortcutsController: NSViewController, NSTableViewDataSource, NSTableViewD
             break
         }
         
+        tableRreload()
+    }
+    
+    func tableRreload() {
         tableView.reloadData()
         saveKeyMappings()
     }
-    override func mouseDown(with event: NSEvent) {
-        activeKeyTextField?.blur()
+    
+    @IBAction func quit(_ sender: AnyObject) {
+        NSApplication.shared().terminate(self)
+    }
+    
+    @IBAction func addRow(_ sender: AnyObject) {
+        keyMappingList.append(KeyMapping())
+        tableRreload()
     }
 }
