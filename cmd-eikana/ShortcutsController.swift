@@ -28,7 +28,10 @@ func keyMappingListToShortcutList() {
         }
         
         shortcutList[key]?.append(val)
-        print("\(key): \(val.input.toString()) => \(val.output.toString())")
+        
+        #if DEBUG
+            print("\(key): \(val.input.toString()) => \(val.output.toString())")
+        #endif
     }
 }
 

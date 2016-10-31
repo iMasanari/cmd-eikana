@@ -691,10 +691,10 @@
             </objects>
             <point key="canvasLocation" x="75" y="668"/>
         </scene>
-        <!--Shortcuts-->
+        <!--Key Remap-->
         <scene sceneID="zoN-we-4m7">
             <objects>
-                <viewController title="Shortcuts" id="14e-rg-kjk" customClass="ShortcutsController" customModule="_英かな" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Key Remap" id="14e-rg-kjk" customClass="ShortcutsController" customModule="_英かな" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="qrE-lf-lrS">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -845,7 +845,7 @@
                                                                 <popUpButton identifier="hage" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dzf-C4-fIi" customClass="MappingMenu" customModule="_英かな" customModuleProvider="target">
                                                                     <rect key="frame" x="2" y="-2" width="71" height="21"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                    <popUpButtonCell key="cell" type="bevel" title="menu" bezelStyle="regularSquare" image="50498785-5FF6-49B5-B894-B325EE8FF12C" imagePosition="left" alignment="center" lineBreakMode="truncatingTail" state="on" identifier="test" inset="2" pullsDown="YES" id="H2F-I4-Cda">
+                                                                    <popUpButtonCell key="cell" type="bevel" title="menu" bezelStyle="regularSquare" image="2EEDBBD4-D504-4B65-92D2-E743C3826DCD" imagePosition="left" alignment="center" lineBreakMode="truncatingTail" state="on" identifier="test" inset="2" pullsDown="YES" id="H2F-I4-Cda">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                         <font key="font" metaFont="menu"/>
                                                                         <menu key="menu" id="BOb-Li-1q3">
@@ -926,7 +926,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ea1-22-ULP">
                                 <rect key="frame" x="18" y="233" width="425" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="除外アプリ設定（チェックのあるアプリでは⌘英かなが無効になります）" id="Y1I-k0-J1y">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="除外アプリ設定（チェックのあるアプリではリマップが無効になります）" id="Y1I-k0-J1y">
                                     <font key="font" size="13" name=".HiraKakuInterface-W3"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1084,7 +1084,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="50498785-5FF6-49B5-B894-B325EE8FF12C" width="1" height="1">
+        <image name="2EEDBBD4-D504-4B65-92D2-E743C3826DCD" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

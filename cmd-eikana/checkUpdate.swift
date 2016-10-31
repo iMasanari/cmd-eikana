@@ -21,12 +21,17 @@ func checkUpdate(_ callback: ((_ isNewVer: Bool?) -> Void)? = nil) {
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
         var newVersion = ""
         var description = ""
+        var url = "https://ei-kana.appspot.com"
         
         do {
             if let data = data {
                 let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
                 newVersion = json["version"] as! String
                 description = json["description"] as! String
+                
+                if let NSURLDownload = json["url"] as? String {
+                    url = NSURLDownload
+                }
             }
         } catch let error as NSError {
             print(error.debugDescription)
@@ -39,13 +44,13 @@ func checkUpdate(_ callback: ((_ isNewVer: Bool?) -> Void)? = nil) {
             let alert = NSAlert()
             alert.messageText = "⌘英かな ver.\(newVersion) が利用可能です"
             alert.informativeText = description
-            alert.addButton(withTitle: "DLページへ")
+            alert.addButton(withTitle: "ダウンロード")
             alert.addButton(withTitle: "キャンセル")
             // alert.showsSuppressionButton = true;
             let ret = alert.runModal()
             
             if (ret == NSAlertFirstButtonReturn) {
-                NSWorkspace.shared().open(URL(string: "https://ei-kana.appspot.com")!)
+                NSWorkspace.shared().open(URL(string: url)!)
             }
         }
         
