@@ -38,11 +38,6 @@ class ShortcutsController: NSViewController, NSTableViewDataSource, NSTableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(ShortcutsController.tableRreload),
-                                               name: NSNotification.Name.NSApplicationDidBecomeActive,
-                                               object: nil)
     }
     
     override func mouseDown(with event: NSEvent) {
@@ -109,6 +104,7 @@ class ShortcutsController: NSViewController, NSTableViewDataSource, NSTableViewD
     
     func tableRreload() {
         tableView.reloadData()
+        keyMappingListToShortcutList()
         saveKeyMappings()
     }
     
