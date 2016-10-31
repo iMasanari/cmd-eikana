@@ -134,7 +134,8 @@ class KeyboardShortcut: NSObject {
             shortcut.isShiftDown() && !self.isShiftDown() ||
             shortcut.isControlDown() && !self.isControlDown() ||
             shortcut.isAlternateDown() && !self.isAlternateDown() ||
-            shortcut.isSecondaryFnDown() && !self.isSecondaryFnDown()
+            shortcut.isSecondaryFnDown() && !self.isSecondaryFnDown() ||
+            shortcut.isCapslockDown() && !self.isCapslockDown()
         {
             return false
         }
