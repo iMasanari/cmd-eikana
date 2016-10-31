@@ -816,6 +816,8 @@
                                                                             <string>英数</string>
                                                                             <string>かな</string>
                                                                             <string>⇧かな</string>
+                                                                            <string>前の入力ソースを選択</string>
+                                                                            <string>入力メニューの次のソースを選択</string>
                                                                         </objectValues>
                                                                     </comboBoxCell>
                                                                 </comboBox>
@@ -843,7 +845,7 @@
                                                                 <popUpButton identifier="hage" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dzf-C4-fIi" customClass="MappingMenu" customModule="_英かな" customModuleProvider="target">
                                                                     <rect key="frame" x="2" y="-2" width="71" height="21"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                    <popUpButtonCell key="cell" type="bevel" title="menu" bezelStyle="regularSquare" image="A2240042-A6CA-4A20-8331-58ADA23E8D03" imagePosition="left" alignment="center" lineBreakMode="truncatingTail" state="on" identifier="test" inset="2" pullsDown="YES" id="H2F-I4-Cda">
+                                                                    <popUpButtonCell key="cell" type="bevel" title="menu" bezelStyle="regularSquare" image="AB15EF91-E4E0-4388-9933-AE461D4A79B1" imagePosition="left" alignment="center" lineBreakMode="truncatingTail" state="on" identifier="test" inset="2" pullsDown="YES" id="H2F-I4-Cda">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                         <font key="font" metaFont="menu"/>
                                                                         <menu key="menu" id="BOb-Li-1q3">
@@ -1082,7 +1084,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="A2240042-A6CA-4A20-8331-58ADA23E8D03" width="1" height="1">
+        <image name="AB15EF91-E4E0-4388-9933-AE461D4A79B1" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

@@ -43,9 +43,22 @@ class KeyTextField: NSComboBox {
         case "⇧かな":
             shortcut = KeyboardShortcut(keyCode: 104, flags: CGEventFlags.maskShift)
             break
+        case "前の入力ソースを選択":
+            let symbolichotkeys = UserDefaults.init(suiteName: "com.apple.symbolichotkeys.plist")?.object(forKey: "AppleSymbolicHotKeys") as! NSDictionary
+            let parameters = symbolichotkeys.value(forKeyPath: "60.value.parameters") as! [Int]
+            
+            shortcut = KeyboardShortcut(keyCode: CGKeyCode(parameters[1]), flags: CGEventFlags(rawValue: UInt64(parameters[2])))
+            break
+        case "入力メニューの次のソースを選択":
+            let symbolichotkeys = UserDefaults.init(suiteName: "com.apple.symbolichotkeys.plist")?.object(forKey: "AppleSymbolicHotKeys") as! NSDictionary
+            let parameters = symbolichotkeys.value(forKeyPath: "61.value.parameters") as! [Int]
+            
+            shortcut = KeyboardShortcut(keyCode: CGKeyCode(parameters[1]), flags: CGEventFlags(rawValue: UInt64(parameters[2])))
+            break
         default:
             break
         }
+        
         if let shortcut = shortcut {
             self.stringValue = shortcut.toString()
             
@@ -60,9 +73,7 @@ class KeyTextField: NSComboBox {
             }
         }
         else {
-            Swift.print("shortcut")
             self.stringValue = ""
-//            oneShotModifiers.removeValue(forKey: key)
         }
         
         saveKeyMappings()
