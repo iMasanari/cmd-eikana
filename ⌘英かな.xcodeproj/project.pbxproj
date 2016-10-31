@@ -153,7 +153,6 @@
 			isa = PBXGroup;
 			children = (
 				6294281A1D387503001BD4E9 /* AppDelegate.swift */,
-				623E2E061DA60DA800AF163C /* PreferenceWindowController.swift */,
 				620E0AD61D9E97BA0067F88B /* checkUpdate.swift */,
 				627265F51D3CC84000703F85 /* KeyEvent.swift */,
 				6242D4BB1DA2455D00CA80DD /* KeyboardShortcut.swift */,
@@ -162,6 +161,7 @@
 				628908ED1DADB0B6008EF46A /* KeyMapping.swift */,
 				6294281E1D387503001BD4E9 /* Assets.xcassets */,
 				629428201D387503001BD4E9 /* Main.storyboard */,
+				623E2E061DA60DA800AF163C /* PreferenceWindowController.swift */,
 				62BEA2A31DA739B6004409AE /* ShortcutsController.swift */,
 				62FE51601DC70C5B0037B8D1 /* ExclusionAppsController.swift */,
 				6294281C1D387503001BD4E9 /* ViewController.swift */,

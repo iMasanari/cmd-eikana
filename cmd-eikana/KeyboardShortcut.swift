@@ -68,6 +68,10 @@ class KeyboardShortcut: NSObject {
             flagString += "(fn)"
         }
         
+        if isCapslockDown() {
+            flagString += "⇪"
+        }
+        
         if isCommandDown() {
             flagString += "⌘"
         }
@@ -83,7 +87,6 @@ class KeyboardShortcut: NSObject {
         if isAlternateDown() {
             flagString += "⌥"
         }
-        // capslock ⇪
         
         return flagString + key!
     }
@@ -106,6 +109,10 @@ class KeyboardShortcut: NSObject {
     
     func isSecondaryFnDown() -> Bool {
         return self.flags.rawValue & CGEventFlags.maskSecondaryFn.rawValue != 0 && keyCode != 63
+    }
+    
+    func isCapslockDown() -> Bool {
+        return self.flags.rawValue & CGEventFlags.maskAlphaShift.rawValue != 0 && keyCode != 57
     }
     
     func postEvent() -> Void {
@@ -241,7 +248,7 @@ let keyCodeDictionary: Dictionary<CGKeyCode, String> = [
     110: "App",
     111: "F12",
     113: "F15",
-    114: "HELP",
+    114: "Help",
     115: "Home", // "↖",
     116: "PgUp",
     117: "⌦",
