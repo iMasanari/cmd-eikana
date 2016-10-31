@@ -53,10 +53,10 @@ class KeyEvent: NSObject {
     func setActiveApp(_ notification: NSNotification) {
         let app = notification.userInfo!["NSWorkspaceApplicationKey"] as! NSRunningApplication
         
-        if let name = app.localizedName, let id = app.bundleIdentifier, id != bundleId {
+        if let name = app.localizedName, let id = app.bundleIdentifier {
             isExclusionApp = exclusionAppsDict[id] != nil
             
-            if (!isExclusionApp) {
+            if (id != bundleId && !isExclusionApp) {
                 activeAppsList = activeAppsList.filter {$0.id != id}
                 activeAppsList.insert(AppData(name: name, id: id), at: 0)
                 
