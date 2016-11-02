@@ -208,7 +208,7 @@ let keyCodeDictionary: Dictionary<CGKeyCode, String> = [
     60: "Shift_R",
     61: "Option_R",
     62: "Control_R",
-    63: "FN",
+    63: "Fn",
     64: "F17",
     65: "Keypad_Dot",
     67: "Keypad_Multiply",
@@ -228,6 +228,7 @@ let keyCodeDictionary: Dictionary<CGKeyCode, String> = [
     87: "Keypad_5",
     88: "Keypad_6",
     89: "Keypad_7",
+    90: "F20",
     91: "Keypad_8",
     92: "Keypad_9",
     93: "¥",
@@ -265,8 +266,8 @@ let keyCodeDictionary: Dictionary<CGKeyCode, String> = [
     127: "PC_POWER",
     128: "GERMAN_PC_LESS_THAN",
     130: "DASHBOARD",
-    131: "LAUNCHPAD",
+    131: "Launchpad",
     144: "BRIGHTNESS_UP",
     145: "BRIGHTNESS_DOWN",
-    160: "EXPOSE_ALL"
+    160: "Expose_All"
 ]
