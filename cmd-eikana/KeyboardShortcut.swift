@@ -129,8 +129,7 @@ class KeyboardShortcut: NSObject {
     }
     
     func isCover(_ shortcut: KeyboardShortcut) -> Bool {
-        if shortcut.keyCode != self.keyCode ||
-            shortcut.isCommandDown() && !self.isCommandDown() ||
+        if shortcut.isCommandDown() && !self.isCommandDown() ||
             shortcut.isShiftDown() && !self.isShiftDown() ||
             shortcut.isControlDown() && !self.isControlDown() ||
             shortcut.isAlternateDown() && !self.isAlternateDown() ||
@@ -202,7 +201,7 @@ let keyCodeDictionary: Dictionary<CGKeyCode, String> = [
     54: "Command_R",
     55: "Command_L",
     56: "Shift_L",
-    57: "Capslock",
+    57: "CapsLock",
     58: "Option_L",
     59: "Control_L",
     60: "Shift_R",
@@ -269,5 +268,29 @@ let keyCodeDictionary: Dictionary<CGKeyCode, String> = [
     131: "Launchpad",
     144: "BRIGHTNESS_UP",
     145: "BRIGHTNESS_DOWN",
-    160: "Expose_All"
+    160: "Expose_All",
+    
+    // media key (bata)
+    1000 + UInt16(NX_KEYTYPE_SOUND_UP): "Sound_up",
+    1000 + UInt16(NX_KEYTYPE_SOUND_DOWN): "Sound_down",
+    1000 + UInt16(NX_KEYTYPE_BRIGHTNESS_UP): "Brightness_up",
+    1000 + UInt16(NX_KEYTYPE_BRIGHTNESS_DOWN): "Brightness_down",
+    1000 + UInt16(NX_KEYTYPE_CAPS_LOCK): "CapsLock",
+    1000 + UInt16(NX_KEYTYPE_HELP): "HELP",
+    1000 + UInt16(NX_POWER_KEY): "PowerKey",
+    1000 + UInt16(NX_KEYTYPE_MUTE): "mute",
+    1000 + UInt16(NX_KEYTYPE_NUM_LOCK): "NUM_LOCK",
+    1000 + UInt16(NX_KEYTYPE_CONTRAST_UP): "CONTRAST_UP",
+    1000 + UInt16(NX_KEYTYPE_CONTRAST_DOWN): "CONTRAST_DOWN",
+    1000 + UInt16(NX_KEYTYPE_LAUNCH_PANEL): "LAUNCH_PANEL",
+    1000 + UInt16(NX_KEYTYPE_EJECT): "EJECT",
+    1000 + UInt16(NX_KEYTYPE_VIDMIRROR): "VIDMIRROR",
+    1000 + UInt16(NX_KEYTYPE_PLAY): "Play",
+    1000 + UInt16(NX_KEYTYPE_NEXT): "NEXT",
+    1000 + UInt16(NX_KEYTYPE_PREVIOUS): "PREVIOUS",
+    1000 + UInt16(NX_KEYTYPE_FAST): "Fast",
+    1000 + UInt16(NX_KEYTYPE_REWIND): "Rewind",
+    1000 + UInt16(NX_KEYTYPE_ILLUMINATION_UP): "Illumination_up",
+    1000 + UInt16(NX_KEYTYPE_ILLUMINATION_DOWN): "Illumination_down",
+    1000 + UInt16(NX_KEYTYPE_ILLUMINATION_TOGGLE): "ILLUMINATION_TOGGLE"
 ]

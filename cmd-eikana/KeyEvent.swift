@@ -69,22 +69,22 @@ class KeyEvent: NSObject {
     
     func watch() {
         let eventMaskList = [
-            CGEventType.keyDown,
-            CGEventType.keyUp,
-            CGEventType.flagsChanged,
-            CGEventType.leftMouseDown,
-            CGEventType.leftMouseUp,
-            CGEventType.rightMouseDown,
-            CGEventType.rightMouseUp,
-            CGEventType.otherMouseDown,
-            CGEventType.otherMouseUp,
-            CGEventType.scrollWheel,
-            // CGEventType.MouseMovedMask,
+            CGEventType.keyDown.rawValue,
+            CGEventType.keyUp.rawValue,
+            CGEventType.flagsChanged.rawValue,
+            CGEventType.leftMouseDown.rawValue,
+            CGEventType.leftMouseUp.rawValue,
+            CGEventType.rightMouseDown.rawValue,
+            CGEventType.rightMouseUp.rawValue,
+            CGEventType.otherMouseDown.rawValue,
+            CGEventType.otherMouseUp.rawValue,
+            CGEventType.scrollWheel.rawValue,
+            UInt32(NX_SYSDEFINED) // Media key Event
         ]
         var eventMask: UInt32 = 0
         
         for mask in eventMaskList {
-            eventMask |= (1 << mask.rawValue)
+            eventMask |= (1 << mask)
         }
         
         let observer = UnsafeMutableRawPointer(Unmanaged.passRetained(self).toOpaque())
@@ -119,26 +119,30 @@ class KeyEvent: NSObject {
             return Unmanaged.passRetained(event)
         }
         
+        if let mediaKeyEvent = MediaKeyEvent(event) {
+            return mediaKeyEvent.keyDown ? mediaKeyDown(mediaKeyEvent) : mediaKeyUp(mediaKeyEvent)
+        }
+        
         switch type {
-            case CGEventType.flagsChanged:
-                let keyCode = CGKeyCode(event.getIntegerValueField(.keyboardEventKeycode))
-                
-                if modifierMasks[keyCode] == nil {
-                    return Unmanaged.passRetained(event)
-                }
-                return event.flags.rawValue & modifierMasks[keyCode]!.rawValue != 0 ?
-                    modifierKeyDown(event) : modifierKeyUp(event)
-                
-            case CGEventType.keyDown:
-                return keyDown(event)
-                
-            case CGEventType.keyUp:
-                return keyUp(event)
-                
-            default:
-                self.keyCode = nil
-                
+        case CGEventType.flagsChanged:
+            let keyCode = CGKeyCode(event.getIntegerValueField(.keyboardEventKeycode))
+            
+            if modifierMasks[keyCode] == nil {
                 return Unmanaged.passRetained(event)
+            }
+            return event.flags.rawValue & modifierMasks[keyCode]!.rawValue != 0 ?
+                modifierKeyDown(event) : modifierKeyUp(event)
+        
+        case CGEventType.keyDown:
+            return keyDown(event)
+        
+        case CGEventType.keyUp:
+            return keyUp(event)
+        
+        default:
+            self.keyCode = nil
+            
+            return Unmanaged.passRetained(event)
         }
     }
     
@@ -206,13 +210,50 @@ class KeyEvent: NSObject {
         return Unmanaged.passRetained(event)
     }
     
-    func getConvertedEvent(_ event: CGEvent) -> CGEvent? {
-        // let event = event.copy()!
-        let keyCode = KeyboardShortcut(event).keyCode
+    func mediaKeyDown(_ mediaKeyEvent: MediaKeyEvent) -> Unmanaged<CGEvent>? {
+        #if DEBUG
+            print(KeyboardShortcut(keyCode: CGKeyCode(1000 + Int(mediaKeyEvent.keyCode)),
+                                flags: CGEventFlags(rawValue: UInt64(mediaKeyEvent.flags))).toString())
+        #endif
         
-        if let mappingList = shortcutList[keyCode] {
+        self.keyCode = nil
+        
+        if let keyTextField = activeKeyTextField {
+            if keyTextField.isAllowModifierOnly {
+                keyTextField.shortcut = KeyboardShortcut(keyCode: CGKeyCode(1000 + Int(mediaKeyEvent.keyCode)),
+                                                         flags: CGEventFlags(rawValue: UInt64(mediaKeyEvent.flags)))
+                keyTextField.stringValue = keyTextField.shortcut!.toString()
+            }
+            
+            return nil
+        }
+        
+        if let event = getConvertedEvent(mediaKeyEvent.event, keyCode: CGKeyCode(1000 + Int(mediaKeyEvent.keyCode)), keyDown: true) {
+            event.post(tap: CGEventTapLocation.cghidEventTap)
+            return nil
+        }
+        
+        return Unmanaged.passRetained(mediaKeyEvent.event)
+    }
+    func mediaKeyUp(_ mediaKeyEvent: MediaKeyEvent) -> Unmanaged<CGEvent>? {
+        
+        if let event = getConvertedEvent(mediaKeyEvent.event, keyCode: CGKeyCode(1000 + Int(mediaKeyEvent.keyCode)), keyDown: false) {
+            event.post(tap: CGEventTapLocation.cghidEventTap)
+            return nil
+        }
+        
+        return Unmanaged.passRetained(mediaKeyEvent.event)
+    }
+    
+    func getConvertedEvent(_ event: CGEvent, keyCode: CGKeyCode? = nil, keyDown: Bool = false) -> CGEvent? {
+        let event = event.type.rawValue == UInt32(NX_SYSDEFINED) ?
+            CGEvent(keyboardEventSource: nil, virtualKey: 0, keyDown: keyDown)! : event.copy()!
+        
+        let shortcht = KeyboardShortcut(event)
+        
+        if let mappingList = shortcutList[keyCode ?? shortcht.keyCode] {
             for mappings in mappingList {
-                if KeyboardShortcut(event).isCover(mappings.input) {
+                if shortcht.isCover(mappings.input) {
                     event.setIntegerValueField(.keyboardEventKeycode, value: Int64(mappings.output.keyCode))
                     event.flags = CGEventFlags(
                         rawValue: (event.flags.rawValue & ~mappings.input.flags.rawValue) | mappings.output.flags.rawValue
