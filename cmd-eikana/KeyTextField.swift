@@ -55,6 +55,9 @@ class KeyTextField: NSComboBox {
             
             shortcut = KeyboardShortcut(keyCode: CGKeyCode(parameters[1]), flags: CGEventFlags(rawValue: UInt64(parameters[2])))
             break
+        case "Disable":
+            shortcut = KeyboardShortcut(keyCode: CGKeyCode(999))
+            break
         default:
             break
         }
