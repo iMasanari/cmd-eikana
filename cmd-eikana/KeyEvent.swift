@@ -258,7 +258,7 @@ class KeyEvent: NSObject {
     
     func hasConvertedEvent(_ event: CGEvent, keyCode: CGKeyCode? = nil, keyDown: Bool = false) -> Bool {
         let event = event.type.rawValue == UInt32(NX_SYSDEFINED) ?
-            CGEvent(keyboardEventSource: nil, virtualKey: 0, keyDown: keyDown)! : event.copy()!
+            CGEvent(keyboardEventSource: nil, virtualKey: 0, keyDown: keyDown)! : event
         
         let shortcht = KeyboardShortcut(event)
         
@@ -275,7 +275,7 @@ class KeyEvent: NSObject {
     }
     func getConvertedEvent(_ event: CGEvent, keyCode: CGKeyCode? = nil, keyDown: Bool = false) -> CGEvent? {
         let event = event.type.rawValue == UInt32(NX_SYSDEFINED) ?
-            CGEvent(keyboardEventSource: nil, virtualKey: 0, keyDown: keyDown)! : event.copy()!
+            CGEvent(keyboardEventSource: nil, virtualKey: 0, keyDown: keyDown)! : event
         
         let shortcht = KeyboardShortcut(event)
         
