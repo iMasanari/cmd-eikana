@@ -12,8 +12,8 @@ class MediaKeyEvent: NSObject {
     let event: CGEvent
     let nsEvent: NSEvent
     
-    var keyCode: Int32
-    var flags: Int
+    var keyCode: Int
+    var flags: CGEventFlags
     var keyDown: Bool
     
     init?(_ event: CGEvent) {
@@ -27,10 +27,11 @@ class MediaKeyEvent: NSObject {
         else {
             return nil
         }
+        
         self.event = event
-        keyCode = Int32(nsEvent.data1 & 0xffff0000) >> 16
-        flags = nsEvent.data1 & 0x0000ffff
-        keyDown = ((flags & 0xff00) >> 8) == 0xa
+        keyCode = (nsEvent.data1 & 0xffff0000) >> 16
+        flags = event.flags
+        keyDown = ((nsEvent.data1 & 0xff00) >> 8) == 0xa
         
         super.init()
     }

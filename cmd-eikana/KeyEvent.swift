@@ -69,17 +69,38 @@ class KeyEvent: NSObject {
     }
     
     func watch() {
+        // マウスのドラッグバグ回避のため、NSEventとCGEventを併用
+        // CGEventのみでやる方法を捜索中
+        
+        let nsEventMaskList = [
+            NSEventMask.leftMouseDown,
+            NSEventMask.leftMouseUp,
+            NSEventMask.rightMouseDown,
+            NSEventMask.rightMouseUp,
+            NSEventMask.otherMouseDown,
+            NSEventMask.otherMouseUp,
+            NSEventMask.scrollWheel
+        ]
+        
+        let globalHandler = {(evevt: NSEvent!) -> Void in self.keyCode = nil }
+        let localHandler = {(evevt: NSEvent!) -> NSEvent in globalHandler(evevt); return evevt }
+        
+        for mask in nsEventMaskList {
+            NSEvent.addGlobalMonitorForEvents(matching: mask, handler: globalHandler)
+            NSEvent.addLocalMonitorForEvents(matching: mask, handler: localHandler)
+        }
+        
         let eventMaskList = [
             CGEventType.keyDown.rawValue,
             CGEventType.keyUp.rawValue,
             CGEventType.flagsChanged.rawValue,
-            CGEventType.leftMouseDown.rawValue,
-            CGEventType.leftMouseUp.rawValue,
-            CGEventType.rightMouseDown.rawValue,
-            CGEventType.rightMouseUp.rawValue,
-            CGEventType.otherMouseDown.rawValue,
-            CGEventType.otherMouseUp.rawValue,
-            CGEventType.scrollWheel.rawValue,
+//            CGEventType.leftMouseDown.rawValue,
+//            CGEventType.leftMouseUp.rawValue,
+//            CGEventType.rightMouseDown.rawValue,
+//            CGEventType.rightMouseUp.rawValue,
+//            CGEventType.otherMouseDown.rawValue,
+//            CGEventType.otherMouseUp.rawValue,
+//            CGEventType.scrollWheel.rawValue,
             UInt32(NX_SYSDEFINED) // Media key Event
         ]
         var eventMask: UInt32 = 0
@@ -219,24 +240,26 @@ class KeyEvent: NSObject {
     
     func mediaKeyDown(_ mediaKeyEvent: MediaKeyEvent) -> Unmanaged<CGEvent>? {
         #if DEBUG
-            print(KeyboardShortcut(keyCode: CGKeyCode(1000 + Int(mediaKeyEvent.keyCode)),
-                                flags: CGEventFlags(rawValue: UInt64(mediaKeyEvent.flags))).toString())
+            print(KeyboardShortcut(keyCode: CGKeyCode(1000 + mediaKeyEvent.keyCode), flags: mediaKeyEvent.flags).toString())
         #endif
         
         self.keyCode = nil
         
         if let keyTextField = activeKeyTextField {
             if keyTextField.isAllowModifierOnly {
-                keyTextField.shortcut = KeyboardShortcut(keyCode: CGKeyCode(1000 + Int(mediaKeyEvent.keyCode)),
-                                                         flags: CGEventFlags(rawValue: UInt64(mediaKeyEvent.flags)))
+                keyTextField.shortcut = KeyboardShortcut(keyCode: CGKeyCode(1000 + mediaKeyEvent.keyCode),
+                                                         flags: mediaKeyEvent.flags)
                 keyTextField.stringValue = keyTextField.shortcut!.toString()
             }
             
             return nil
         }
         
-        if hasConvertedEvent(mediaKeyEvent.event, keyCode: CGKeyCode(1000 + Int(mediaKeyEvent.keyCode)), keyDown: true) {
-            if let event = getConvertedEvent(mediaKeyEvent.event, keyCode: CGKeyCode(1000 + Int(mediaKeyEvent.keyCode)), keyDown: true) {
+        if hasConvertedEvent(mediaKeyEvent.event, keyCode: CGKeyCode(1000 + mediaKeyEvent.keyCode)) {
+            if let event = getConvertedEvent(mediaKeyEvent.event, keyCode: CGKeyCode(1000 + mediaKeyEvent.keyCode)) {
+                print(KeyboardShortcut(event).toString())
+                
+                print(event.type == CGEventType.keyDown)
                 event.post(tap: CGEventTapLocation.cghidEventTap)
             }
             return nil
@@ -245,22 +268,19 @@ class KeyEvent: NSObject {
         return Unmanaged.passUnretained(mediaKeyEvent.event)
     }
     func mediaKeyUp(_ mediaKeyEvent: MediaKeyEvent) -> Unmanaged<CGEvent>? {
-        
-        if hasConvertedEvent(mediaKeyEvent.event, keyCode: CGKeyCode(1000 + Int(mediaKeyEvent.keyCode)), keyDown: true) {
-            if let event = getConvertedEvent(mediaKeyEvent.event, keyCode: CGKeyCode(1000 + Int(mediaKeyEvent.keyCode)), keyDown: false) {
-                event.post(tap: CGEventTapLocation.cghidEventTap)
-            }
-            return nil
-        }
+        // if hasConvertedEvent(mediaKeyEvent.event, keyCode: CGKeyCode(1000 + mediaKeyEvent.keyCode)) {
+        //     if let event = getConvertedEvent(mediaKeyEvent.event, keyCode: CGKeyCode(1000 + Int(mediaKeyEvent.keyCode))) {
+                // event.post(tap: CGEventTapLocation.cghidEventTap)
+        //     }
+        //     return nil
+        // }
         
         return Unmanaged.passUnretained(mediaKeyEvent.event)
     }
     
-    func hasConvertedEvent(_ event: CGEvent, keyCode: CGKeyCode? = nil, keyDown: Bool = false) -> Bool {
-        let event = event.type.rawValue == UInt32(NX_SYSDEFINED) ?
-            CGEvent(keyboardEventSource: nil, virtualKey: 0, keyDown: keyDown)! : event
-        
-        let shortcht = KeyboardShortcut(event)
+    func hasConvertedEvent(_ event: CGEvent, keyCode: CGKeyCode? = nil) -> Bool {
+        let shortcht = event.type.rawValue == UInt32(NX_SYSDEFINED) ?
+            KeyboardShortcut(keyCode: 0, flags: MediaKeyEvent(event)!.flags) : KeyboardShortcut(event)
         
         if let mappingList = shortcutList[keyCode ?? shortcht.keyCode] {
             for mappings in mappingList {
@@ -273,9 +293,14 @@ class KeyEvent: NSObject {
         hasConvertedEventLog = nil
         return false
     }
-    func getConvertedEvent(_ event: CGEvent, keyCode: CGKeyCode? = nil, keyDown: Bool = false) -> CGEvent? {
-        let event = event.type.rawValue == UInt32(NX_SYSDEFINED) ?
-            CGEvent(keyboardEventSource: nil, virtualKey: 0, keyDown: keyDown)! : event
+    func getConvertedEvent(_ event: CGEvent, keyCode: CGKeyCode? = nil) -> CGEvent? {
+        var event = event
+        
+        if event.type.rawValue == UInt32(NX_SYSDEFINED) {
+            let flags = MediaKeyEvent(event)!.flags
+            event = CGEvent(keyboardEventSource: nil, virtualKey: 0, keyDown: true)!
+            event.flags = flags
+        }
         
         let shortcht = KeyboardShortcut(event)
         

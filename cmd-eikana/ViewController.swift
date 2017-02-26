@@ -51,6 +51,9 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
     @IBAction func clickCheckUpdateAtlaunch(_ sender: AnyObject) {
         userDefaults.set(checkUpdateAtlaunch.state, forKey: "checkUpdateAtlaunch")
     }
+    @IBAction func test(_ sender: Any) {
+        
+    }
     
     @IBAction func checkUpdateButton(_ sender: AnyObject) {
         updateButton.isEnabled = false
