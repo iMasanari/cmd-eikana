@@ -846,7 +846,7 @@
                                                                 <popUpButton identifier="hage" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dzf-C4-fIi" customClass="MappingMenu" customModule="_英かな" customModuleProvider="target">
                                                                     <rect key="frame" x="2" y="-2" width="71" height="21"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                    <popUpButtonCell key="cell" type="bevel" title="menu" bezelStyle="regularSquare" image="0AAB4221-39B1-4F9A-971A-85CA9F46A576" imagePosition="left" alignment="center" lineBreakMode="truncatingTail" state="on" identifier="test" inset="2" pullsDown="YES" id="H2F-I4-Cda">
+                                                                    <popUpButtonCell key="cell" type="bevel" title="menu" bezelStyle="regularSquare" image="32F683D3-7744-45BC-A826-EF3B9777FC1E" imagePosition="left" alignment="center" lineBreakMode="truncatingTail" state="on" identifier="test" inset="2" pullsDown="YES" id="H2F-I4-Cda">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                         <font key="font" metaFont="menu"/>
                                                                         <menu key="menu" id="BOb-Li-1q3">
@@ -1066,7 +1066,7 @@
                                     <font key="font" size="13" name=".HiraKakuInterface-W3"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="checkUpdateButton:" target="uYA-LV-zsC" id="cSn-MG-HZ8"/>
+                                    <action selector="checkForUpdates:" target="wGd-Pb-NO0" id="rwP-XK-pfn"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1076,16 +1076,16 @@
                         <outlet property="lunchAtStartup" destination="a6E-DH-qqL" id="w9n-De-W85"/>
                         <outlet property="showIcon" destination="UcU-gG-BmS" id="GbK-wC-gej"/>
                         <outlet property="tableView" destination="pHp-lE-BfK" id="AvL-ae-1yN"/>
-                        <outlet property="updateButton" destination="jqL-vq-Vub" id="Lnc-fu-DVo"/>
                     </connections>
                 </viewController>
                 <customObject id="PRd-gs-VTn" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <customObject id="wGd-Pb-NO0" customClass="SUUpdater"/>
             </objects>
             <point key="canvasLocation" x="739" y="930"/>
         </scene>
     </scenes>
     <resources>
-        <image name="0AAB4221-39B1-4F9A-971A-85CA9F46A576" width="1" height="1">
+        <image name="32F683D3-7744-45BC-A826-EF3B9777FC1E" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

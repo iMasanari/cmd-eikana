@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		620E0AD71D9E97BA0067F88B /* checkUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620E0AD61D9E97BA0067F88B /* checkUpdate.swift */; };
+		3C1A8FF63789D589B56CC6F8 /* Pods_____.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23DDFC54BBE20D440A971B66 /* Pods_____.framework */; };
 		620E0B441D9F2F8F0067F88B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 620E0B431D9F2F8F0067F88B /* AppDelegate.m */; };
 		620E0B471D9F2F8F0067F88B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 620E0B461D9F2F8F0067F88B /* main.m */; };
 		620E0B491D9F2F8F0067F88B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 620E0B481D9F2F8F0067F88B /* Assets.xcassets */; };
@@ -18,6 +18,8 @@
 		6242D4BC1DA2455D00CA80DD /* KeyboardShortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6242D4BB1DA2455D00CA80DD /* KeyboardShortcut.swift */; };
 		6242D4BE1DA395AC00CA80DD /* KeyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6242D4BD1DA395AC00CA80DD /* KeyTextField.swift */; };
 		624BF4CA1DD182F500A70E2C /* MediaKeyEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624BF4C91DD182F500A70E2C /* MediaKeyEvent.swift */; };
+		6270840E1E7EC76B00873E85 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 6270840D1E7EC76B00873E85 /* dsa_pub.pem */; };
+		627084131E7ECE9E00873E85 /* appcast.xml in Resources */ = {isa = PBXBuildFile; fileRef = 627084121E7ECE9E00873E85 /* appcast.xml */; };
 		627265F61D3CC84000703F85 /* KeyEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627265F51D3CC84000703F85 /* KeyEvent.swift */; };
 		628908EE1DADB0B6008EF46A /* KeyMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628908ED1DADB0B6008EF46A /* KeyMapping.swift */; };
 		6294281B1D387503001BD4E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6294281A1D387503001BD4E9 /* AppDelegate.swift */; };
@@ -55,7 +57,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		620E0AD61D9E97BA0067F88B /* checkUpdate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = checkUpdate.swift; sourceTree = "<group>"; };
+		23DDFC54BBE20D440A971B66 /* Pods_____.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Pods_____.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B85BD013CCA48E22AFCF38E /* Pods-⌘英かな.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-⌘英かな.debug.xcconfig"; path = "Pods/Target Support Files/Pods-⌘英かな/Pods-⌘英かな.debug.xcconfig"; sourceTree = "<group>"; };
 		620E0B401D9F2F8F0067F88B /* cmd-eikana-helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "cmd-eikana-helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		620E0B421D9F2F8F0067F88B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		620E0B431D9F2F8F0067F88B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -68,6 +71,8 @@
 		6242D4BB1DA2455D00CA80DD /* KeyboardShortcut.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardShortcut.swift; sourceTree = "<group>"; };
 		6242D4BD1DA395AC00CA80DD /* KeyTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyTextField.swift; sourceTree = "<group>"; };
 		624BF4C91DD182F500A70E2C /* MediaKeyEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaKeyEvent.swift; sourceTree = "<group>"; };
+		6270840D1E7EC76B00873E85 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
+		627084121E7ECE9E00873E85 /* appcast.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = appcast.xml; sourceTree = "<group>"; };
 		627265F51D3CC84000703F85 /* KeyEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyEvent.swift; sourceTree = "<group>"; };
 		628908ED1DADB0B6008EF46A /* KeyMapping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyMapping.swift; sourceTree = "<group>"; };
 		629428171D387503001BD4E9 /* ⌘英かな.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "⌘英かな.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -83,6 +88,7 @@
 		62D162E61D3B350B009C95B0 /* toggleLaunchAtStartup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = toggleLaunchAtStartup.swift; sourceTree = "<group>"; };
 		62FE51601DC70C5B0037B8D1 /* ExclusionAppsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExclusionAppsController.swift; sourceTree = "<group>"; };
 		62FE51621DC75ECE0037B8D1 /* AppData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
+		B1999B56180894908E52DFCB /* Pods-⌘英かな.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-⌘英かな.release.xcconfig"; path = "Pods/Target Support Files/Pods-⌘英かな/Pods-⌘英かな.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C1A8FF63789D589B56CC6F8 /* Pods_____.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,6 +117,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		25EF9AE3686610018D0A01A0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				23DDFC54BBE20D440A971B66 /* Pods_____.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		42831956D5806BA46C745376 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4B85BD013CCA48E22AFCF38E /* Pods-⌘英かな.debug.xcconfig */,
+				B1999B56180894908E52DFCB /* Pods-⌘英かな.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		620E0B411D9F2F8F0067F88B /* cmd-eikana-helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -131,13 +155,24 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		627084111E7ECE9E00873E85 /* doc */ = {
+			isa = PBXGroup;
+			children = (
+				627084121E7ECE9E00873E85 /* appcast.xml */,
+			);
+			path = doc;
+			sourceTree = "<group>";
+		};
 		6294280E1D387503001BD4E9 = {
 			isa = PBXGroup;
 			children = (
 				629428191D387503001BD4E9 /* ⌘英かな */,
 				6294282B1D387503001BD4E9 /* ⌘英かなTests */,
 				620E0B411D9F2F8F0067F88B /* cmd-eikana-helper */,
+				627084111E7ECE9E00873E85 /* doc */,
 				629428181D387503001BD4E9 /* Products */,
+				42831956D5806BA46C745376 /* Pods */,
+				25EF9AE3686610018D0A01A0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -155,7 +190,6 @@
 			isa = PBXGroup;
 			children = (
 				6294281A1D387503001BD4E9 /* AppDelegate.swift */,
-				620E0AD61D9E97BA0067F88B /* checkUpdate.swift */,
 				62D162E61D3B350B009C95B0 /* toggleLaunchAtStartup.swift */,
 				627265F51D3CC84000703F85 /* KeyEvent.swift */,
 				6242D4BB1DA2455D00CA80DD /* KeyboardShortcut.swift */,
@@ -171,6 +205,7 @@
 				620E47761DB3C6E9004A2664 /* MappingMenu.swift */,
 				6242D4BD1DA395AC00CA80DD /* KeyTextField.swift */,
 				629428231D387503001BD4E9 /* Info.plist */,
+				6270840D1E7EC76B00873E85 /* dsa_pub.pem */,
 			);
 			name = "⌘英かな";
 			path = "cmd-eikana";
@@ -210,10 +245,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 629428311D387503001BD4E9 /* Build configuration list for PBXNativeTarget "⌘英かな" */;
 			buildPhases = (
+				37F18F228224053AA50482EB /* [CP] Check Pods Manifest.lock */,
 				629428131D387503001BD4E9 /* Sources */,
 				629428141D387503001BD4E9 /* Frameworks */,
 				629428151D387503001BD4E9 /* Resources */,
 				6289285F1D99021700313C05 /* CopyFiles */,
+				1C9D74D006DA90EB08478795 /* [CP] Embed Pods Frameworks */,
+				F738317A3B3F144974C5167E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -307,6 +345,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6294281F1D387503001BD4E9 /* Assets.xcassets in Resources */,
+				6270840E1E7EC76B00873E85 /* dsa_pub.pem in Resources */,
+				627084131E7ECE9E00873E85 /* appcast.xml in Resources */,
 				629428221D387503001BD4E9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -319,6 +359,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1C9D74D006DA90EB08478795 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-⌘英かな/Pods-⌘英かな-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		37F18F228224053AA50482EB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F738317A3B3F144974C5167E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-⌘英かな/Pods-⌘英かな-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		620E0B3C1D9F2F8F0067F88B /* Sources */ = {
@@ -335,7 +423,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				62FE51631DC75ECE0037B8D1 /* AppData.swift in Sources */,
-				620E0AD71D9E97BA0067F88B /* checkUpdate.swift in Sources */,
 				62BEA2A41DA739B6004409AE /* ShortcutsController.swift in Sources */,
 				624BF4CA1DD182F500A70E2C /* MediaKeyEvent.swift in Sources */,
 				627265F61D3CC84000703F85 /* KeyEvent.swift in Sources */,
@@ -509,6 +596,7 @@
 		};
 		629428321D387503001BD4E9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4B85BD013CCA48E22AFCF38E /* Pods-⌘英かな.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -523,6 +611,7 @@
 		};
 		629428331D387503001BD4E9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B1999B56180894908E52DFCB /* Pods-⌘英かな.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;

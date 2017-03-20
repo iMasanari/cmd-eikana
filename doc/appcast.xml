@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Eikana β Changelog</title>
+    <link>https://imasanari.github.io/eikana-bata/appcast.xml</link>
+    <description>Eikana β update Changelog.</description>
+    <language>en</language>
+    <item>
+      <title>⌘英かな v2.2.1</title>
+      <description>
+        <![CDATA[
+          <ul><li>Fix mouse bug.</li></ul>
+        ]]>
+      </description>
+      <pubDate>Sun Feb 26 2017 10:10:00 GMT+0900 (JST)</pubDate>
+      <enclosure url="https://github.com/iMasanari/cmd-eikana/releases/download/v2.2.1/eikana-2.2.1.app.zip"
+        sparkle:version="2.2.1"
+        length="3421835"
+        type="application/octet-stream"
+        sparkle:dsaSignature=""
+      />
+    </item>
+  </channel>
+</rss>

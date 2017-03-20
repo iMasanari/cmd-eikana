@@ -14,7 +14,6 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
     @IBOutlet weak var showIcon: NSButton!
     @IBOutlet weak var lunchAtStartup: NSButton!
     @IBOutlet weak var checkUpdateAtlaunch: NSButton!
-    @IBOutlet weak var updateButton: NSButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,33 +49,6 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
     }
     @IBAction func clickCheckUpdateAtlaunch(_ sender: AnyObject) {
         userDefaults.set(checkUpdateAtlaunch.state, forKey: "checkUpdateAtlaunch")
-    }
-    @IBAction func test(_ sender: Any) {
-        
-    }
-    
-    @IBAction func checkUpdateButton(_ sender: AnyObject) {
-        updateButton.isEnabled = false
-        checkUpdate({ (isNewVer: Bool?) -> Void in
-            self.updateButton.isEnabled = true
-            if isNewVer == nil {
-                let alert = NSAlert()
-                
-                alert.messageText = "通信に失敗しました"
-                alert.informativeText = "時間をおいて試してください"
-                
-                alert.runModal()
-            }
-            else if isNewVer == false {
-                let alert = NSAlert()
-                
-                alert.messageText = "最新バージョンです"
-                let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
-                alert.informativeText = "ver.\(version)"
-                
-                alert.runModal()
-            }
-        })
     }
 }
 
