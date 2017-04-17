@@ -5,20 +5,20 @@
         <link>https://imasanari.github.io/cmd-eikana/appcast.xml</link>
         <description>Eikana update Changelog.</description>
         <language>en</language>
+        <item>
+            <title>Eikana v2.2.2</title>
+            <description>
+                <![CDATA[
+                    <ul><li>Use Sparkle for update.</li></ul>
+                ]]>
+            </description>
+            <pubDate>Sun Feb 26 2017 10:10:00 GMT+0900 (JST)</pubDate>
+            <enclosure url="https://github.com/iMasanari/cmd-eikana/releases/download/v2.2.2/eikana-2.2.2.app.zip"
+            sparkle:version="2.2.2"
+            length="4599550"
+            type="application/octet-stream"
+            sparkle:dsaSignature="MC0CFQChxvBHCEqmAJq1KVPzcq1/eLwJywIUIrmaxXNqWs+vWgPyinzoBf5U10g="
+            />
+        </item>
     </channel>
-    <item>
-        <title>Eikana v2.2.2</title>
-        <description>
-            <![CDATA[
-                <ul><li>Use Sparkle for update.</li></ul>
-            ]]>
-        </description>
-        <pubDate>Sun Feb 26 2017 10:10:00 GMT+0900 (JST)</pubDate>
-        <enclosure url="https://github.com/iMasanari/cmd-eikana/releases/download/v2.2.2/eikana-2.2.2.app.zip"
-        sparkle:version="2.2.2"
-        length="4599550"
-        type="application/octet-stream"
-        sparkle:dsaSignature="MCwCFGnLa8wsTGLqQJqZqMhwYXaAJ87cAhRPkJIN1DKsS32qw6bu2w11j14gmA=="
-        />
-    </item>
 </rss>

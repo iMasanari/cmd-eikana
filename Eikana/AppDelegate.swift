@@ -118,7 +118,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
         
-        menu.addItem(withTitle: "About ⌘英かな \(version)", action: #selector(AppDelegate.open(_:)), keyEquivalent: "")
+        menu.addItem(withTitle: "About Eikana \(version)", action: #selector(AppDelegate.open(_:)), keyEquivalent: "")
         menu.addItem(withTitle: "Preferences...", action: #selector(AppDelegate.openPreferencesSerector(_:)), keyEquivalent: "")
         menu.addItem(NSMenuItem.separator())
         menu.addItem(withTitle: "Restart", action: #selector(AppDelegate.restart(_:)), keyEquivalent: "")
