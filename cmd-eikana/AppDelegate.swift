@@ -116,6 +116,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         menu.addItem(withTitle: "About ⌘英かな \(version)", action: #selector(AppDelegate.open(_:)), keyEquivalent: "")
         menu.addItem(withTitle: "Preferences...", action: #selector(AppDelegate.openPreferencesSerector(_:)), keyEquivalent: "")
+        menu.addItem(NSMenuItem.separator())
+        menu.addItem(withTitle: "Restart", action: #selector(AppDelegate.restart(_:)), keyEquivalent: "")
         menu.addItem(withTitle: "Quit", action: #selector(AppDelegate.quit(_:)), keyEquivalent: "")
         
         _ = KeyEvent()
@@ -161,6 +163,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             sender.state = 0
 //            removeLaunchAtStartup()
         }
+    }
+    
+    @IBAction func restart(_ sender: NSButton) {
+        let url = URL(fileURLWithPath: Bundle.main.resourcePath!)
+        let path = url.deletingLastPathComponent().deletingLastPathComponent().absoluteString
+        let task = Process()
+        task.launchPath = "/usr/bin/open"
+        task.arguments = [path]
+        task.launch()
+        NSApplication.shared().terminate(self)
     }
     
     @IBAction func quit(_ sender: NSButton) {
