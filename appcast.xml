@@ -14,7 +14,7 @@
       </description>
       <pubDate>Sun Feb 26 2017 10:10:00 GMT+0900 (JST)</pubDate>
       <enclosure url="https://github.com/iMasanari/cmd-eikana/releases/download/v2.2.1/eikana-2.2.1.app.zip"
-        sparkle:version="15"
+        sparkle:version="2.2.1"
         length="3421835"
         type="application/octet-stream"
         sparkle:dsaSignature=""
