@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import Sparkle
 
 var statusItem = NSStatusBar.system().statusItem(withLength: CGFloat(NSVariableStatusItemLength))
 var loginItem = NSMenuItem()
@@ -36,13 +37,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // 「起動時にアップデートを確認」
         let checkUpdateState = userDefaults.object(forKey: "checkUpdateAtlaunch")
+        let updater = SUUpdater.shared()!
+        
+        updater.feedURL = URL(string: "https://imasanari.github.io/cmd-eikana/appcast.xml")
         
         if checkUpdateState == nil {
             userDefaults.set(1, forKey: "checkUpdateAtlaunch")
-            checkUpdate()
+            updater.checkForUpdatesInBackground()
         }
         else if checkUpdateState as! Int == 1 {
-            checkUpdate()
+            updater.checkForUpdatesInBackground()
         }
         
         // 除外アプリ設定
