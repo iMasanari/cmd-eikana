@@ -13,7 +13,7 @@ class PreferenceWindowController: NSWindowController, NSWindowDelegate {
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
         let controller = storyboard.instantiateController(withIdentifier: "Preference") as! PreferenceWindowController
         
-        controller.window?.title = "⌘英かな"
+        controller.window?.title = "Eikana"
         
         return controller
     }
