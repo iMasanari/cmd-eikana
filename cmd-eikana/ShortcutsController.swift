@@ -83,19 +83,19 @@ class ShortcutsController: NSViewController, NSTableViewDataSource, NSTableViewD
         activeKeyTextField?.blur()
         
         switch sender.selectedItem!.title {
-        case "この項目を削除":
+        case "この項目を削除", "remove":
             sender.remove()
             break
-        case "最上部に移動":
+        case "最上部に移動", "move to the top":
             sender.move(0)
             break
-        case "1つ上に移動":
+        case "1つ上に移動", "move one up":
             sender.move(sender.row! - 1)
             break
-        case "1つ下に移動":
+        case "1つ下に移動", "move one down":
             sender.move(sender.row! + 1)
             break
-        case "最下部に移動":
+        case "最下部に移動", "move to bottom":
             sender.move(keyMappingList.count - 1)
             break
         default:

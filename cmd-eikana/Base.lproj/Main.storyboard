@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16E195" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
@@ -816,8 +816,8 @@
                                                                             <string>英数</string>
                                                                             <string>かな</string>
                                                                             <string>⇧かな</string>
-                                                                            <string>前の入力ソースを選択</string>
-                                                                            <string>入力メニューの次のソースを選択</string>
+                                                                            <string>select the previous input source</string>
+                                                                            <string>select next source in input menu</string>
                                                                             <string>Disable</string>
                                                                         </objectValues>
                                                                     </comboBoxCell>
@@ -846,22 +846,22 @@
                                                                 <popUpButton identifier="hage" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dzf-C4-fIi" customClass="MappingMenu" customModule="_英かな" customModuleProvider="target">
                                                                     <rect key="frame" x="2" y="-2" width="71" height="21"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                    <popUpButtonCell key="cell" type="bevel" title="menu" bezelStyle="regularSquare" image="0AAB4221-39B1-4F9A-971A-85CA9F46A576" imagePosition="left" alignment="center" lineBreakMode="truncatingTail" state="on" identifier="test" inset="2" pullsDown="YES" id="H2F-I4-Cda">
+                                                                    <popUpButtonCell key="cell" type="bevel" title="menu" bezelStyle="regularSquare" image="460E0CBD-EABA-45DF-9FBC-38B7E4BE6383" imagePosition="left" alignment="center" lineBreakMode="truncatingTail" state="on" identifier="test" inset="2" pullsDown="YES" id="H2F-I4-Cda">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                         <font key="font" metaFont="menu"/>
                                                                         <menu key="menu" id="BOb-Li-1q3">
                                                                             <items>
                                                                                 <menuItem title="menu" state="on" hidden="YES" id="hM9-HT-fqx"/>
-                                                                                <menuItem title="最上部に移動" id="SPl-n7-KTj">
+                                                                                <menuItem title="move to the top" id="SPl-n7-KTj">
                                                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                                                 </menuItem>
-                                                                                <menuItem title="1つ上に移動" id="5K6-xN-Jic"/>
-                                                                                <menuItem title="1つ下に移動" id="fY1-dw-1o1"/>
-                                                                                <menuItem title="最下部に移動" id="EUh-qz-H2g">
+                                                                                <menuItem title="move one up" id="5K6-xN-Jic"/>
+                                                                                <menuItem title="move one down" id="fY1-dw-1o1"/>
+                                                                                <menuItem title="move to bottom" id="EUh-qz-H2g">
                                                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                                                 </menuItem>
                                                                                 <menuItem isSeparatorItem="YES" id="VSb-Dd-g0X"/>
-                                                                                <menuItem title="この項目を削除" id="502-f2-l6k">
+                                                                                <menuItem title="remove" id="502-f2-l6k">
                                                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                                                 </menuItem>
                                                                             </items>
@@ -927,7 +927,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ea1-22-ULP">
                                 <rect key="frame" x="18" y="233" width="425" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="除外アプリ設定（チェックのあるアプリではリマップが無効になります）" id="Y1I-k0-J1y">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="remapping is disabled for checked applications" id="Y1I-k0-J1y">
                                     <font key="font" size="13" name=".HiraKakuInterface-W3"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1028,7 +1028,7 @@
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UcU-gG-BmS">
                                 <rect key="frame" x="18" y="234" width="215" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="メニューバーにアイコンを表示" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Swa-9Q-bjA">
+                                <buttonCell key="cell" type="check" title="show icon on menu bar" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Swa-9Q-bjA">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" size="13" name=".HiraKakuInterface-W3"/>
                                 </buttonCell>
@@ -1039,7 +1039,7 @@
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a6E-DH-qqL">
                                 <rect key="frame" x="18" y="214" width="215" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="ログイン後にこのアプリを起動" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="UJa-91-PJq">
+                                <buttonCell key="cell" type="check" title="start with system login" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="UJa-91-PJq">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" size="13" name=".HiraKakuInterface-W3"/>
                                 </buttonCell>
@@ -1050,7 +1050,7 @@
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SNT-SJ-fye">
                                 <rect key="frame" x="18" y="194" width="215" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="起動時にアップデートを確認" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="6Pk-W2-evg">
+                                <buttonCell key="cell" type="check" title="check for update when start" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="6Pk-W2-evg">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" size="13" name=".HiraKakuInterface-W3"/>
                                 </buttonCell>
@@ -1059,9 +1059,9 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jqL-vq-Vub">
-                                <rect key="frame" x="347" y="185" width="89" height="32"/>
+                                <rect key="frame" x="315" y="185" width="121" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="確認する" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4Dh-kS-y64">
+                                <buttonCell key="cell" type="push" title="check update" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4Dh-kS-y64">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" size="13" name=".HiraKakuInterface-W3"/>
                                 </buttonCell>
@@ -1085,7 +1085,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="0AAB4221-39B1-4F9A-971A-85CA9F46A576" width="1" height="1">
+        <image name="460E0CBD-EABA-45DF-9FBC-38B7E4BE6383" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

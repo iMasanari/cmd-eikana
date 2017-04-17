@@ -44,8 +44,8 @@ func checkUpdate(_ callback: ((_ isNewVer: Bool?) -> Void)? = nil) {
             let alert = NSAlert()
             alert.messageText = "⌘英かな ver.\(newVersion) が利用可能です"
             alert.informativeText = description
-            alert.addButton(withTitle: "ダウンロード")
-            alert.addButton(withTitle: "キャンセル")
+            alert.addButton(withTitle: "Download")
+            alert.addButton(withTitle: "Cancel")
             // alert.showsSuppressionButton = true;
             let ret = alert.runModal()
             
