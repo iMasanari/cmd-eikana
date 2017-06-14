@@ -16,6 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     var windowController : NSWindowController?
     var preferenceWindowController: PreferenceWindowController!
+    let keyEvent = KeyEvent()
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
@@ -120,7 +121,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         menu.addItem(withTitle: "Restart", action: #selector(AppDelegate.restart(_:)), keyEquivalent: "")
         menu.addItem(withTitle: "Quit", action: #selector(AppDelegate.quit(_:)), keyEquivalent: "")
         
-        _ = KeyEvent()
+        keyEvent.start()
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {

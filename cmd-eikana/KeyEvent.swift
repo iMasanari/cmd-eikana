@@ -18,10 +18,12 @@ class KeyEvent: NSObject {
     var isExclusionApp = false
     let bundleId = Bundle.main.infoDictionary?["CFBundleIdentifier"] as! String
     var hasConvertedEventLog: KeyMapping? = nil
-    
+
     override init() {
         super.init()
-        
+    }
+    
+    func start() {
         NSWorkspace.shared().notificationCenter.addObserver(self,
                                                             selector: #selector(KeyEvent.setActiveApp(_:)),
                                                             name: NSNotification.Name.NSWorkspaceDidActivateApplication,
@@ -71,23 +73,23 @@ class KeyEvent: NSObject {
     func watch() {
         // マウスのドラッグバグ回避のため、NSEventとCGEventを併用
         // CGEventのみでやる方法を捜索中
-        
-        let nsEventMaskList = [
-            NSEventMask.leftMouseDown,
-            NSEventMask.leftMouseUp,
-            NSEventMask.rightMouseDown,
-            NSEventMask.rightMouseUp,
-            NSEventMask.otherMouseDown,
-            NSEventMask.otherMouseUp,
-            NSEventMask.scrollWheel
+        let nsEventMaskList: NSEventMask = [
+            .leftMouseDown,
+            .leftMouseUp,
+            .rightMouseDown,
+            .rightMouseUp,
+            .otherMouseDown,
+            .otherMouseUp,
+            .scrollWheel
         ]
         
-        let globalHandler = {(evevt: NSEvent!) -> Void in self.keyCode = nil }
-        let localHandler = {(evevt: NSEvent!) -> NSEvent in globalHandler(evevt); return evevt }
+        NSEvent.addGlobalMonitorForEvents(matching: nsEventMaskList) {(event: NSEvent) -> Void in
+            self.keyCode = nil
+        }
         
-        for mask in nsEventMaskList {
-            NSEvent.addGlobalMonitorForEvents(matching: mask, handler: globalHandler)
-            NSEvent.addLocalMonitorForEvents(matching: mask, handler: localHandler)
+        NSEvent.addLocalMonitorForEvents(matching: nsEventMaskList) {(event: NSEvent) -> NSEvent? in
+            self.keyCode = nil
+            return event
         }
         
         let eventMaskList = [
@@ -175,11 +177,11 @@ class KeyEvent: NSObject {
         #endif
         
         self.keyCode = nil
-        
+      
         if let keyTextField = activeKeyTextField {
             keyTextField.shortcut = KeyboardShortcut(event)
             keyTextField.stringValue = keyTextField.shortcut!.toString()
-            
+                        
             return nil
         }
         
@@ -267,6 +269,7 @@ class KeyEvent: NSObject {
         
         return Unmanaged.passUnretained(mediaKeyEvent.event)
     }
+    
     func mediaKeyUp(_ mediaKeyEvent: MediaKeyEvent) -> Unmanaged<CGEvent>? {
         // if hasConvertedEvent(mediaKeyEvent.event, keyCode: CGKeyCode(1000 + mediaKeyEvent.keyCode)) {
         //     if let event = getConvertedEvent(mediaKeyEvent.event, keyCode: CGKeyCode(1000 + Int(mediaKeyEvent.keyCode))) {
