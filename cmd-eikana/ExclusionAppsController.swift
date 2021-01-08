@@ -8,7 +8,6 @@
 
 import Cocoa
 
-
 class ExclusionAppsController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
     @IBOutlet weak var tableView: NSTableView!
     
@@ -18,7 +17,7 @@ class ExclusionAppsController: NSViewController, NSTableViewDataSource, NSTableV
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(ExclusionAppsController.tableReload),
-                                               name: NSNotification.Name.NSApplicationDidBecomeActive,
+                                               name: NSApplication.didBecomeActiveNotification,
                                                object: nil)
     }
     
@@ -31,16 +30,16 @@ class ExclusionAppsController: NSViewController, NSTableViewDataSource, NSTableV
         
         let isExclusion =  row < exclusionAppsList.count
         
-        if id == "checkbox" {
+        if id.rawValue == "checkbox" {
             return isExclusion
         }
         
         let value = isExclusion ? exclusionAppsList[row] : activeAppsList[row - exclusionAppsList.count]
         
-        if id == "appName" {
+        if id.rawValue == "appName" {
             return value.name
         }
-        if id == "appId" {
+        if id.rawValue == "appId" {
             return value.id
         }
         
@@ -50,7 +49,7 @@ class ExclusionAppsController: NSViewController, NSTableViewDataSource, NSTableV
         let id = tableColumn!.identifier
         let isExclusion =  row < exclusionAppsList.count
         
-        if id != "checkbox" {
+        if id != NSUserInterfaceItemIdentifier(rawValue: "checkbox") {
             return
         }
         
@@ -73,7 +72,7 @@ class ExclusionAppsController: NSViewController, NSTableViewDataSource, NSTableV
         saveExclusionApps()
     }
     
-    func tableReload() {
+    @objc func tableReload() {
         tableView.reloadData()
     }
     
