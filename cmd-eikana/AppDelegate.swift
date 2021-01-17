@@ -8,7 +8,7 @@
 
 import Cocoa
 
-var statusItem = NSStatusBar.system().statusItem(withLength: CGFloat(NSVariableStatusItemLength))
+var statusItem = NSStatusBar.system.statusItem(withLength: CGFloat(NSStatusItem.variableLength))
 var loginItem = NSMenuItem()
 
 @NSApplicationMain
@@ -144,7 +144,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBAction func open(_ sender: NSButton) {
         if let checkURL = URL(string: "https://ei-kana.appspot.com") {
-            if NSWorkspace.shared().open(checkURL) {
+            if NSWorkspace.shared.open(checkURL) {
                 print("url successfully opened")
             }
         } else {
@@ -156,12 +156,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @IBAction func launch(_ sender: NSButton) {
-        if sender.state == 0 {
-            sender.state = 1
+        if sender.state.rawValue == 0 {
+            sender.state = NSControl.StateValue(rawValue: 1)
 //            addLaunchAtStartup()
         }
         else {
-            sender.state = 0
+            sender.state = NSControl.StateValue(rawValue: 0)
 //            removeLaunchAtStartup()
         }
     }
@@ -173,11 +173,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         task.launchPath = "/usr/bin/open"
         task.arguments = [path]
         task.launch()
-        NSApplication.shared().terminate(self)
+        NSApplication.shared.terminate(self)
     }
     
     @IBAction func quit(_ sender: NSButton) {
-        NSApplication.shared().terminate(self)
+        NSApplication.shared.terminate(self)
     }
 }
 

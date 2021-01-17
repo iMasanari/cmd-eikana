@@ -17,7 +17,7 @@ func checkUpdate(_ callback: ((_ isNewVer: Bool?) -> Void)? = nil) {
     let url = URL(string: "https://ei-kana.appspot.com/update.json")!
     let request = URLRequest(url: url)
     
-    let handler = { (res:URLResponse?,data:Data?,error:Error?) -> Void in
+    let handler = { (data:Data?, res:URLResponse?, error:Error?) -> Void in
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
         var newVersion = ""
         var description = ""
@@ -49,15 +49,21 @@ func checkUpdate(_ callback: ((_ isNewVer: Bool?) -> Void)? = nil) {
             // alert.showsSuppressionButton = true;
             let ret = alert.runModal()
             
-            if (ret == NSAlertFirstButtonReturn) {
-                NSWorkspace.shared().open(URL(string: url)!)
+            if (ret == NSApplication.ModalResponse.alertFirstButtonReturn) {
+                NSWorkspace.shared.open(URL(string: url)!)
             }
         }
         
         if let callback = callback {
-            callback(isAbleUpdate)
+            DispatchQueue.main.async {
+                callback(isAbleUpdate)
+            }
         }
     }
     
-    NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main, completionHandler: handler)
+    //NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main, completionHandler: handler)
+    let config = URLSessionConfiguration.default
+    let session = URLSession(configuration: config)
+    let task = session.dataTask(with: request, completionHandler: handler)
+    task.resume()
 }

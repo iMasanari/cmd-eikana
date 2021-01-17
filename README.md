@@ -17,9 +17,10 @@ Open the "⌘" icon in the status bar at the top right and select "Quit".
 ⌘ Drag app to the trash
 Also, the configuration file is located at ~ / Library / Preferences / io.github.imasanari.cmd - eikana.plist. If you want to erase cleanly please also put this in the garbage can.
 
-## Tested for compatibilitywith
-- OS X El Capitan 10.11.5
-- Mac OS Sierra 10.12
+## Tested for compatibility with
+- OS X El Capitan 10.11.5 (未確認)
+- Mac OS Sierra 10.12 (未確認)
+- macOS Big Sur 11.1 (Apple M1)
 
 ## License
 MIT License
@@ -52,8 +53,9 @@ https://ei-kana.appspot.com/
 
 ## 動作確認
 
-- OS X El Capitan 10.11.5 
-- mac OS Sierra 10.12
+- OS X El Capitan 10.11.5 (未確認)
+- mac OS Sierra 10.12 (未確認)
+- macOS Big Sur 11.1 (Apple M1)
 
 ## ライセンス
 MIT License

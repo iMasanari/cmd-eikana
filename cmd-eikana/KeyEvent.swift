@@ -24,9 +24,9 @@ class KeyEvent: NSObject {
     }
     
     func start() {
-        NSWorkspace.shared().notificationCenter.addObserver(self,
+        NSWorkspace.shared.notificationCenter.addObserver(self,
                                                             selector: #selector(KeyEvent.setActiveApp(_:)),
-                                                            name: NSNotification.Name.NSWorkspaceDidActivateApplication,
+                                                            name: NSWorkspace.didActivateApplicationNotification,
                                                             object:nil)
         
         let checkOptionPrompt = kAXTrustedCheckOptionPrompt.takeRetainedValue() as NSString
@@ -45,7 +45,7 @@ class KeyEvent: NSObject {
         }
     }
     
-    func watchAXIsProcess(_ timer: Timer) {
+    @objc func watchAXIsProcess(_ timer: Timer) {
         if AXIsProcessTrusted() {
             timer.invalidate()
             
@@ -53,7 +53,7 @@ class KeyEvent: NSObject {
         }
     }
     
-    func setActiveApp(_ notification: NSNotification) {
+    @objc func setActiveApp(_ notification: NSNotification) {
         let app = notification.userInfo!["NSWorkspaceApplicationKey"] as! NSRunningApplication
         
         if let name = app.localizedName, let id = app.bundleIdentifier {
@@ -73,7 +73,7 @@ class KeyEvent: NSObject {
     func watch() {
         // マウスのドラッグバグ回避のため、NSEventとCGEventを併用
         // CGEventのみでやる方法を捜索中
-        let nsEventMaskList: NSEventMask = [
+        let nsEventMaskList: NSEvent.EventTypeMask = [
             .leftMouseDown,
             .leftMouseUp,
             .rightMouseDown,

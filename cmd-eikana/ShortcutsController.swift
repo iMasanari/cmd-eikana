@@ -54,19 +54,19 @@ class ShortcutsController: NSViewController, NSTableViewDataSource, NSTableViewD
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let id = tableColumn!.identifier
 
-        if let cell = tableView.make(withIdentifier: id, owner: nil) as? NSTableCellView {
-            if id == "input" || id == "output" {
-                let value = id == "input" ? keyMappingList[row].input : keyMappingList[row].output
+        if let cell = tableView.makeView(withIdentifier: id, owner: nil) as? NSTableCellView {
+            if id.rawValue == "input" || id.rawValue == "output" {
+                let value = id.rawValue == "input" ? keyMappingList[row].input : keyMappingList[row].output
                 
                 // let textField = cell.textField!
                 let textField = cell.subviews[0] as! KeyTextField
                 
                 textField.stringValue = value.toString()
                 textField.shortcut = value
-                textField.saveAddress = (row: row, id: id)
-                textField.isAllowModifierOnly = id == "input"
+                textField.saveAddress = (row: row, id: id.rawValue)
+                textField.isAllowModifierOnly = id.rawValue == "input"
             }
-            if id == "mapping-menu" {
+            if id.rawValue == "mapping-menu" {
                 let button = cell.subviews[0] as! MappingMenu
                 
                 button.row = row
@@ -79,7 +79,7 @@ class ShortcutsController: NSViewController, NSTableViewDataSource, NSTableViewD
         }
         return nil
     }
-    func remove(_ sender: MappingMenu) {
+    @objc func remove(_ sender: MappingMenu) {
         activeKeyTextField?.blur()
         
         switch sender.selectedItem!.title {
@@ -112,7 +112,7 @@ class ShortcutsController: NSViewController, NSTableViewDataSource, NSTableViewD
     }
     
     @IBAction func quit(_ sender: AnyObject) {
-        NSApplication.shared().terminate(self)
+        NSApplication.shared.terminate(self)
     }
     
     @IBAction func addRow(_ sender: AnyObject) {
