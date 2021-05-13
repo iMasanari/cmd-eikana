@@ -20,6 +20,7 @@ Also, the configuration file is located at ~ / Library / Preferences / io.github
 ## Tested for compatibility with
 - OS X El Capitan 10.11.5 (未確認)
 - Mac OS Sierra 10.12 (未確認)
+- macOS Catalina 10.15.7
 - macOS Big Sur 11.1 (Apple M1)
 
 ## License
@@ -55,6 +56,7 @@ https://ei-kana.appspot.com/
 
 - OS X El Capitan 10.11.5 (未確認)
 - mac OS Sierra 10.12 (未確認)
+- macOS Catalina 10.15.7
 - macOS Big Sur 11.1 (Apple M1)
 
 ## ライセンス
