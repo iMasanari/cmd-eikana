@@ -62,5 +62,8 @@ func checkUpdate(_ callback: ((_ isNewVer: Bool?) -> Void)? = nil) {
         }
     }
     
-    URLSession.shared.dataTask(with: request, completionHandler: handler).resume()
+    let config = URLSessionConfiguration.default
+    let session = URLSession(configuration: config)
+    let task = session.dataTask(with: request, completionHandler: handler)
+    task.resume()
 }

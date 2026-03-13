@@ -19,7 +19,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let keyEvent = KeyEvent()
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Insert code here to initialize your application
+        // Insert code here to initialize your application　
         
 //         resetUserDefault() // デバッグ用
         
