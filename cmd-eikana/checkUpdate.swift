@@ -6,10 +6,9 @@
 //  Copyright (c) 2016 iMasanari
 //
 
-// TODO: NSURLSessionでの書き直し
-// NSURLConnection.sendAsynchronousRequestはdeprecatedだが
-// NSURLSessionを使うと実行時にalert.runModal()でエラーが出たため
-// NSURLConnectionで代用中
+// TODO: アップデートチェック機能の改善
+// NSURLConnection.sendAsynchronousRequestはdeprecatedのためURLSessionに置き換え
+// メインスレッドでのUI操作をDispatchQueue.main.asyncで対応
 
 import Cocoa
 
@@ -41,16 +40,18 @@ func checkUpdate(_ callback: ((_ isNewVer: Bool?) -> Void)? = nil) {
         let isAbleUpdate: Bool? = (newVersion == "") ? nil : newVersion != version
         
         if isAbleUpdate == true {
-            let alert = NSAlert()
-            alert.messageText = "⌘英かな ver.\(newVersion) が利用可能です"
-            alert.informativeText = description
-            alert.addButton(withTitle: "Download")
-            alert.addButton(withTitle: "Cancel")
-            // alert.showsSuppressionButton = true;
-            let ret = alert.runModal()
-            
-            if (ret == NSApplication.ModalResponse.alertFirstButtonReturn) {
-                NSWorkspace.shared.open(URL(string: url)!)
+            DispatchQueue.main.async {
+                let alert = NSAlert()
+                alert.messageText = "⌘英かな ver.\(newVersion) が利用可能です"
+                alert.informativeText = description
+                alert.addButton(withTitle: "Download")
+                alert.addButton(withTitle: "Cancel")
+                // alert.showsSuppressionButton = true;
+                let ret = alert.runModal()
+                
+                if (ret == NSApplication.ModalResponse.alertFirstButtonReturn) {
+                    NSWorkspace.shared.open(URL(string: url)!)
+                }
             }
         }
         
@@ -61,7 +62,6 @@ func checkUpdate(_ callback: ((_ isNewVer: Bool?) -> Void)? = nil) {
         }
     }
     
-    //NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main, completionHandler: handler)
     let config = URLSessionConfiguration.default
     let session = URLSession(configuration: config)
     let task = session.dataTask(with: request, completionHandler: handler)
